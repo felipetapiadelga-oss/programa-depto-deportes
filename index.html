@@ -81,6 +81,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .doc-view a{color:var(--azul-claro);text-decoration:underline;font-weight:500}
 .doc-view a:hover{color:var(--azul)}
 .por-levantar{background:#fefcbf;color:#975a16;padding:.1rem .4rem;border-radius:3px;font-weight:600;font-size:.85em}
+.md-table{width:100%;border-collapse:collapse;margin:.8rem 0 1rem;font-size:.82rem}
+.md-table th{background:var(--azul);color:#fff;padding:.45rem .6rem;text-align:left;font-weight:600;font-size:.75rem}
+.md-table td{padding:.4rem .6rem;border-bottom:1px solid var(--gris-borde);color:var(--gris-texto)}
+.md-table tr:nth-child(even) td{background:#f7fafc}
+.md-table tr:hover td{background:#edf2f7}
 
 /* EDITOR */
 .editor-wrap{display:flex;gap:0;height:calc(100vh - 52px)}
@@ -806,33 +811,144 @@ Que es, a que nivel del modelo sirve, costo estimado, retorno esperado (deportiv
 - Adultos activos por mes
 - Familias con mas de un miembro haciendo deporte en el colegio
 - Encuesta anual de satisfaccion de comunidad`},
-"kpis-e-informes":{title:"KPIs e informes a rectoria",sectionId:"08",md:`## Indicadores por nivel del modelo
+"kpis-e-informes":{title:"KPIs e informes a rectoria",sectionId:"08",md:`Lo que no se mide no se gestiona, pero lo que se mide mal se gestiona peor. Los indicadores de este documento estan pensados para ser pocos, claros y accionables. Si un numero no genera una decision, sobra.
 
-### FORMACION
-- % de alumnos evaluados en el perfil (meta: 100%)
-- % de alumnos que mejoran su medicion anterior
+## Principios de medicion
 
-### DESARROLLO
-- Alumnos en talleres y ramas (numero y % de la matricula)
-- Retencion en talleres (inicio vs fin de ano)
+- **Pocos indicadores, bien medidos.** Maximo 3-4 KPIs por nivel. Mejor medir 12 cosas bien que 40 a medias.
+- **Meta escalonada.** El ano 1 no tiene las mismas metas que el ano 3. Partir realista y subir.
+- **Datos comparables.** Cada medicion usa la misma metodologia para poder comparar en el tiempo.
+- **Transparencia.** El equipo conoce los indicadores y sus metas. No se evalua en secreto.
+- **Sin vanity metrics.** "Numero de actividades realizadas" no es un KPI. El impacto de esas actividades si lo es.
 
-### ELITE
-- Resultados deportivos por rama (definir metas realistas por ano)
-- Seleccionados con plan individual activo
-- Lesiones por cada 100 deportistas (a la baja)
+## Indicadores por nivel del modelo
 
-### COMUNIDAD
-- Adultos activos por mes
-- Familias que dejan de consumir deporte externo (encuesta anual)
+### FORMACION (100% de los alumnos)
 
-### GESTION
-- Ejecucion presupuestaria (desviacion bajo 5%)
-- Clima del equipo docente (encuesta semestral)
+| KPI | Formula | Meta ano 1 | Meta ano 3 |
+|-----|---------|-----------|-----------|
+| Cobertura de evaluacion | Alumnos evaluados / matricula total x 100 | 90% | 100% |
+| Mejora del perfil atletico | Alumnos que mejoran vs medicion anterior / total evaluados x 100 | 60% | 75% |
+| Reporte a familias | Familias que reciben reporte semestral / total familias x 100 | 80% | 100% |
 
-## Informe a rectoria
-- **Mensual:** una pagina (avances, alertas, proximos hitos)
-- **Semestral:** presentacion con datos del perfil y resultados
-- **Regla:** malas noticias primero y con plan de accion incluido`},
+**Como se mide:**
+- Dos mediciones al ano: marzo (entrada) y octubre (salida)
+- Bateria estandarizada (ver documento perfil-atletico en 02-perfil-deportista)
+- Datos cargados en plataforma, no en planillas sueltas
+
+**Que decisiones alimenta:**
+- Si la cobertura es baja: problema de logistica o de compromiso docente
+- Si la mejora es baja en un curso: revisar la planificacion de ese nivel
+- Si los reportes no llegan: revisar el proceso, no culpar al docente
+
+### DESARROLLO (talleres y ramas deportivas)
+
+| KPI | Formula | Meta ano 1 | Meta ano 3 |
+|-----|---------|-----------|-----------|
+| Participacion | Alumnos inscritos en al menos 1 taller o rama / matricula total x 100 | 30% | 50% |
+| Retencion anual | Alumnos que terminan el ano / inscritos al inicio x 100 | 70% | 85% |
+| Planificacion visible | Ramas con plan anual cargado en plataforma / total ramas x 100 | 50% | 100% |
+| Satisfaccion | Nota promedio encuesta de satisfaccion (escala 1-7) | 5.5 | 6.0 |
+
+**Como se mide:**
+- Inscripcion y asistencia en plataforma (registro semanal)
+- Encuesta de satisfaccion a alumnos y apoderados al cierre de cada semestre
+- Revision de planificaciones cargadas al inicio de cada semestre
+
+**Que decisiones alimenta:**
+- Participacion baja: faltan opciones atractivas, horarios malos o comunicacion debil
+- Retencion baja en una rama: investigar (entrenador, horario, nivel de exigencia)
+- Planificacion no cargada: el entrenador necesita apoyo o no esta cumpliendo el acuerdo
+
+### ELITE (seleccionados y competencia)
+
+| KPI | Formula | Meta ano 1 | Meta ano 3 |
+|-----|---------|-----------|-----------|
+| Seleccionados con plan individual | Deportistas con plan activo / total seleccionados x 100 | 60% | 100% |
+| Indice de lesiones | Lesiones que requieren baja / 100 deportistas por semestre | Linea base | Reduccion 20% |
+| Resultados deportivos | Posicion promedio en competencias oficiales por rama | Linea base | Mejora vs linea base |
+| Coordinacion academica | Seleccionados con protocolo academico activo / total x 100 | 50% | 90% |
+
+**Como se mide:**
+- Plan individual documentado y con seguimiento mensual
+- Registro de lesiones con clasificacion (tipo, gravedad, mecanismo)
+- Resultados oficiales de competencias (ADECOP, ligas, torneos)
+- Coordinacion con direccion academica verificada por escrito
+
+### COMUNIDAD (deporte de adultos e identidad)
+
+| KPI | Formula | Meta ano 1 | Meta ano 3 |
+|-----|---------|-----------|-----------|
+| Adultos activos | Apoderados y staff participando por mes | 30 | 80 |
+| Actividades comunitarias | Eventos deportivos abiertos a la comunidad por semestre | 2 | 4 |
+| Impacto en retencion | Familias que mencionan deporte como factor de permanencia | Linea base | Mejora vs base |
+
+### GESTION (operacion del area)
+
+| KPI | Formula | Meta ano 1 | Meta ano 3 |
+|-----|---------|-----------|-----------|
+| Ejecucion presupuestaria | Gasto real / presupuesto aprobado x 100 | 90-105% | 95-105% |
+| Clima del equipo | Nota promedio encuesta interna (escala 1-7) | 5.0 | 6.0 |
+| Cumplimiento de planificacion | Actividades realizadas / programadas x 100 | 75% | 90% |
+| Informes a tiempo | Informes entregados en plazo / comprometidos x 100 | 90% | 100% |
+
+## Tablero resumen
+
+Vista unica que consolida los KPIs principales. Se actualiza mensualmente.
+
+**Semaforo por nivel:**
+- Verde: en meta o sobre meta
+- Amarillo: bajo meta pero con tendencia positiva o plan de accion activo
+- Rojo: bajo meta sin plan de accion
+
+## Informes a rectoria
+
+### Informe mensual (una pagina)
+1. **Semaforo:** 5 indicadores clave en verde/amarillo/rojo
+2. **Avances del mes:** 3-4 bullets de lo que se logro
+3. **Alertas:** lo que no salio como se esperaba y por que
+4. **Proximos hitos:** lo que viene el mes siguiente
+5. **Pedidos:** si se necesita algo de rectoria, explicito y con plazo
+
+**Regla de oro:** las malas noticias van primero y siempre con plan de accion incluido.
+
+**Dia de entrega:** el ultimo dia habil de cada mes, sin excepcion.
+
+### Informe semestral (presentacion 15-20 min)
+1. Resultados del perfil atletico (comparacion entrada vs salida)
+2. Participacion y retencion en Desarrollo
+3. Resultados deportivos
+4. Ejecucion presupuestaria
+5. Clima y equipo
+6. Plan del proximo semestre
+
+### Informe anual
+1. Cumplimiento de KPIs: meta vs real con explicacion
+2. Evolucion respecto al ano anterior (a partir del ano 2)
+3. Casos de exito
+4. Lecciones aprendidas
+5. Propuesta para el ano siguiente
+
+## Errores comunes a evitar
+
+- **Medir para justificarse.** Los datos son para mejorar, no para demostrar que todo esta bien.
+- **Cambiar la metodologia para mejorar el numero.** Se pierde la comparabilidad.
+- **Sobrecargar al equipo con registros.** Si un docente pasa mas tiempo registrando que ensenando, algo esta mal.
+- **Informar solo lo bueno.** La confianza de rectoria se gana con transparencia.
+- **No actuar sobre los datos.** Cada dato debe conectar con una decision o una accion.
+
+## Calendario de medicion
+
+| Que | Cuando | Responsable |
+|-----|--------|-------------|
+| Perfil atletico entrada | Marzo (semanas 2-3) | Equipo de formacion |
+| Perfil atletico salida | Octubre (semanas 2-3) | Equipo de formacion |
+| Encuesta satisfaccion | Junio y noviembre | Jefatura de area |
+| Encuesta clima equipo | Junio y noviembre | Jefatura de area |
+| Revision planificaciones | Marzo y agosto | Jefatura de area |
+| Informe mensual | Ultimo dia habil de cada mes | Jefatura de area |
+| Informe semestral | Julio y diciembre | Jefatura de area |
+| Informe anual | Enero (mes siguiente) | Jefatura de area |`},
 "plan-90-dias":{title:"Plan de los primeros 90 dias",sectionId:"08",md:`Los primeros tres meses definen si el proyecto tiene traccion o se queda en un documento bonito. La logica es simple: primero escuchar, despues devolver, despues mostrar resultados. En ese orden.
 
 ## Mes 1: escuchar y levantar (semanas 1 a 4)
@@ -1038,9 +1154,9 @@ function slugify(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(
 // MARKDOWN PARSER
 // =====================================================
 function parseMd(md) {
-  let html = '', inUl = false, inOl = false;
+  let html = '', inUl = false, inOl = false, inTable = false;
   const lines = md.split('\n');
-  function cl() { let s=''; if(inUl){s+='</ul>';inUl=false} if(inOl){s+='</ol>';inOl=false} return s; }
+  function cl() { let s=''; if(inUl){s+='</ul>';inUl=false} if(inOl){s+='</ol>';inOl=false} if(inTable){s+='</tbody></table>';inTable=false} return s; }
   function il(t) {
     t = t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
     t = t.replace(/`(.+?)`/g,'<code>$1</code>');
@@ -1048,9 +1164,21 @@ function parseMd(md) {
     t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,'<a href="$2" target="_blank" style="color:var(--azul-claro);text-decoration:underline">$1</a>');
     return t;
   }
-  for (const line of lines) {
-    const tr = line.trim();
+  function isTableRow(t) { return t.startsWith('|') && t.endsWith('|'); }
+  function isSepRow(t) { return /^\|[\s\-:|]+\|$/.test(t); }
+  function parseRow(t, tag) { return '<tr>'+t.slice(1,-1).split('|').map(c=>`<${tag}>${il(c.trim())}</${tag}>`).join('')+'</tr>'; }
+  for (let i = 0; i < lines.length; i++) {
+    const tr = lines[i].trim();
     if (!tr) { html += cl(); continue; }
+    if (isTableRow(tr) && !inTable) {
+      const next = i+1 < lines.length ? lines[i+1].trim() : '';
+      if (isSepRow(next)) {
+        html += cl()+'<table class="md-table"><thead>'+parseRow(tr,'th')+'</thead><tbody>';
+        inTable = true; i++; continue;
+      }
+    }
+    if (inTable && isTableRow(tr)) { html += parseRow(tr,'td'); continue; }
+    if (inTable && !isTableRow(tr)) { html += '</tbody></table>'; inTable = false; }
     let m;
     if ((m = tr.match(/^### (.+)/))) { html += cl()+`<h3>${il(m[1])}</h3>`; continue; }
     if ((m = tr.match(/^## (.+)/))) { html += cl()+`<h2>${il(m[1])}</h2>`; continue; }
