@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Depto Deportes - Docs</title>
+<style>
+:root {
+  --azul: #1a365d;
+  --azul-claro: #2b6cb0;
+  --azul-hover: #2c5282;
+  --gris-fondo: #f7fafc;
+  --gris-borde: #e2e8f0;
+  --gris-texto: #4a5568;
+  --verde: #276749;
+  --verde-bg: #f0fff4;
+  --rojo: #c53030;
+  --sidebar-w: 270px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--gris-fondo);color:#1a202c}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--azul);color:#fff;display:flex;flex-direction:column;z-index:10}
+.sidebar-header{padding:1.2rem 1rem .8rem;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0}
+.sidebar-header h1{font-size:.95rem;font-weight:700}
+.sidebar-header p{font-size:.7rem;opacity:.5;margin-top:.15rem}
+.search-box{padding:.5rem 1rem;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0}
+.search-box input{width:100%;padding:.4rem .6rem;border:none;border-radius:4px;background:rgba(255,255,255,.12);color:#fff;font-size:.78rem;outline:none}
+.search-box input::placeholder{color:rgba(255,255,255,.4)}
+.search-box input:focus{background:rgba(255,255,255,.2)}
+.nav-scroll{flex:1;overflow-y:auto;padding-bottom:1rem}
+.nav-section{margin-top:.4rem}
+.nav-section-head{display:flex;align-items:center;padding:.4rem 1rem .15rem;gap:.3rem}
+.nav-section-title{font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;opacity:.4;font-weight:600;flex:1}
+.nav-sec-btn{background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:.75rem;padding:0 .15rem;line-height:1}
+.nav-sec-btn:hover{color:rgba(255,255,255,.7)}
+.nav-item{display:flex;align-items:center;gap:.4rem;padding:.35rem 1rem .35rem 1.3rem;font-size:.78rem;color:rgba(255,255,255,.7);cursor:pointer;transition:background .12s;border-left:3px solid transparent;position:relative}
+.nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-item.active{background:rgba(255,255,255,.12);color:#fff;border-left-color:#63b3ed;font-weight:600}
+.nav-item.home-link{padding-left:1rem;font-weight:600;color:rgba(255,255,255,.9);border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:.5rem;margin-bottom:.2rem}
+.nav-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.nav-dot.empty{border:1.5px solid rgba(255,255,255,.3)}
+.nav-dot.edited{background:#48bb78}
+.nav-dot.nuevo{background:#63b3ed}
+.nav-label{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-item-del{display:none;background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:.7rem;padding:0 .1rem}
+.nav-item:hover .nav-item-del{display:block}
+.nav-item-del:hover{color:#fc8181}
+.sidebar-footer{padding:.6rem 1rem;border-top:1px solid rgba(255,255,255,.1);flex-shrink:0;display:flex;gap:.4rem;flex-wrap:wrap}
+.sidebar-btn{flex:1;padding:.35rem;border:1px solid rgba(255,255,255,.2);border-radius:4px;background:none;color:rgba(255,255,255,.7);font-size:.65rem;cursor:pointer;transition:background .12s;min-width:0;white-space:nowrap}
+.sidebar-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);min-height:100vh}
+.toolbar{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--gris-borde);padding:.6rem 2rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.breadcrumb{font-size:.75rem;color:var(--gris-texto);flex:1}
+.breadcrumb b{color:var(--azul)}
+.tb{padding:.35rem .7rem;border:1px solid var(--gris-borde);border-radius:5px;background:#fff;font-size:.72rem;cursor:pointer;color:var(--gris-texto);font-weight:500;transition:all .12s}
+.tb:hover{border-color:var(--azul-claro);color:var(--azul-claro)}
+.tb.primary{background:var(--azul);color:#fff;border-color:var(--azul)}
+.tb.primary:hover{background:var(--azul-hover)}
+.tb.danger{color:var(--rojo)}
+.tb.danger:hover{border-color:var(--rojo)}
+.status-pill{font-size:.63rem;padding:.18rem .5rem;border-radius:10px;font-weight:600}
+.status-pill.editado{background:var(--verde-bg);color:var(--verde)}
+.status-pill.original{background:#edf2f7;color:#718096}
+.status-pill.nuevo{background:#ebf8ff;color:#2b6cb0}
+
+/* CONTENT */
+.content-area{padding:1.5rem 2rem 4rem;max-width:850px}
+.doc-view h1{font-size:1.5rem;color:var(--azul);margin-bottom:.3rem}
+.doc-view h2{font-size:1.15rem;color:var(--azul);margin-top:1.6rem;margin-bottom:.4rem;border-bottom:2px solid var(--gris-borde);padding-bottom:.25rem}
+.doc-view h3{font-size:.95rem;color:var(--azul-claro);margin-top:1.2rem;margin-bottom:.3rem}
+.doc-view p{line-height:1.6;margin-bottom:.5rem;color:var(--gris-texto)}
+.doc-view ul,.doc-view ol{margin:.3rem 0 .7rem 1.3rem;color:var(--gris-texto)}
+.doc-view li{margin-bottom:.25rem;line-height:1.5}
+.doc-view strong{color:#1a202c}
+.doc-view code{background:#edf2f7;padding:.15rem .4rem;border-radius:3px;font-size:.85em}
+.doc-view blockquote{border-left:3px solid var(--azul-claro);padding:.5rem 1rem;margin:.8rem 0;background:#ebf8ff;color:var(--azul)}
+.doc-view a{color:var(--azul-claro);text-decoration:underline;font-weight:500}
+.doc-view a:hover{color:var(--azul)}
+.por-levantar{background:#fefcbf;color:#975a16;padding:.1rem .4rem;border-radius:3px;font-weight:600;font-size:.85em}
+
+/* EDITOR */
+.editor-wrap{display:flex;gap:0;height:calc(100vh - 52px)}
+.editor-pane{flex:1;display:flex;flex-direction:column}
+.editor-pane-label{font-size:.63rem;text-transform:uppercase;letter-spacing:.06em;padding:.4rem 1rem;background:#edf2f7;color:#718096;font-weight:600;border-bottom:1px solid var(--gris-borde)}
+.editor-textarea{flex:1;width:100%;border:none;padding:1.2rem 1.5rem;font-family:"SF Mono","Fira Code",Consolas,monospace;font-size:.82rem;line-height:1.7;resize:none;outline:none;background:#fafbfc;color:#1a202c;tab-size:2}
+.preview-pane{flex:1;overflow-y:auto;border-left:1px solid var(--gris-borde)}
+.preview-content{padding:1.2rem 1.5rem}
+.editor-only .preview-pane{display:none}
+
+/* DASHBOARD */
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.8rem;margin-top:1rem}
+.dash-card{background:#fff;border:1px solid var(--gris-borde);border-radius:8px;padding:1rem;cursor:pointer;transition:box-shadow .15s,border-color .15s}
+.dash-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06);border-color:var(--azul-claro)}
+.dash-card h3{font-size:.82rem;color:var(--azul);margin:0 0 .2rem}
+.dash-card p{font-size:.72rem;color:var(--gris-texto);margin:0}
+.dash-card .badge{display:inline-block;font-size:.6rem;padding:.1rem .4rem;border-radius:10px;margin-bottom:.4rem;font-weight:600}
+.badge-0{background:#ebf8ff;color:#2b6cb0}.badge-1{background:#fefcbf;color:#975a16}.badge-2{background:#f0fff4;color:#276749}
+.badge-3{background:#fed7e2;color:#97266d}.badge-4{background:#e9d8fd;color:#553c9a}.badge-5{background:#feebc8;color:#c05621}
+.badge-6{background:#bee3f8;color:#2a4365}.badge-7{background:#c6f6d5;color:#22543d}.badge-8{background:#fefcbf;color:#744210}
+.badge-9{background:#fed7d7;color:#9b2c2c}
+.progress-row{display:flex;align-items:center;gap:.5rem;margin-top:.4rem}
+.progress-bar{flex:1;height:4px;background:#edf2f7;border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:#48bb78;border-radius:2px;transition:width .3s}
+.progress-text{font-size:.65rem;color:#a0aec0}
+
+/* MODELO */
+.modelo-visual{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.2rem 0}
+.modelo-nivel{background:#fff;border-radius:8px;padding:1rem;border-left:4px solid;text-align:center}
+.modelo-nivel h4{font-size:.85rem;margin-bottom:.2rem}
+.modelo-nivel p{font-size:.72rem;color:var(--gris-texto);margin:0}
+.nivel-formacion{border-color:#48bb78}.nivel-desarrollo{border-color:#4299e1}.nivel-elite{border-color:#ed8936}
+.modelo-comunidad{background:#fff;border:2px dashed #9f7aea;border-radius:8px;padding:.8rem;text-align:center;margin-bottom:1rem}
+.modelo-comunidad h4{color:#553c9a;font-size:.85rem;margin-bottom:.15rem}
+.modelo-comunidad p{font-size:.72rem;color:var(--gris-texto);margin:0}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:50;display:flex;align-items:center;justify-content:center}
+.modal{background:#fff;border-radius:10px;padding:1.5rem;width:380px;max-width:90vw;box-shadow:0 20px 40px rgba(0,0,0,.15)}
+.modal h3{font-size:1rem;color:var(--azul);margin-bottom:1rem}
+.modal label{display:block;font-size:.75rem;color:var(--gris-texto);margin-bottom:.25rem;margin-top:.7rem}
+.modal input,.modal select{width:100%;padding:.45rem .6rem;border:1px solid var(--gris-borde);border-radius:5px;font-size:.82rem;outline:none}
+.modal input:focus,.modal select:focus{border-color:var(--azul-claro)}
+.modal-actions{display:flex;gap:.5rem;justify-content:flex-end;margin-top:1.2rem}
+.modal-actions button{padding:.4rem 1rem;border-radius:5px;font-size:.78rem;cursor:pointer;border:1px solid var(--gris-borde);background:#fff;color:var(--gris-texto)}
+.modal-actions .modal-ok{background:var(--azul);color:#fff;border-color:var(--azul)}
+.modal-actions .modal-ok:hover{background:var(--azul-hover)}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:#1a202c;color:#fff;padding:.6rem 1.2rem;border-radius:6px;font-size:.8rem;opacity:0;transform:translateY(10px);transition:all .3s;z-index:100}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* NEW DOC PLACEHOLDER */
+.empty-doc{text-align:center;padding:4rem 2rem;color:#a0aec0}
+.empty-doc h2{font-size:1.1rem;margin-bottom:.5rem;color:#718096}
+.empty-doc p{font-size:.85rem}
+.empty-doc button{margin-top:1rem;padding:.5rem 1.5rem;background:var(--azul);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.85rem}
+.empty-doc button:hover{background:var(--azul-hover)}
+
+.hidden{display:none!important}
+@media print{.sidebar,.toolbar{display:none}.main{margin-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <h1>Depto Deportes</h1>
+    <p>Colegio particular, sector oriente</p>
+  </div>
+  <div class="search-box">
+    <input type="text" id="buscar" placeholder="Buscar documento...">
+  </div>
+  <div class="nav-scroll" id="nav-list"></div>
+  <div class="sidebar-footer">
+    <button class="sidebar-btn" onclick="openNewSection()">+ Seccion</button>
+    <button class="sidebar-btn" onclick="exportAll()">Exportar</button>
+    <button class="sidebar-btn" onclick="resetAll()">Restaurar</button>
+  </div>
+</nav>
+
+<div class="main" id="app">
+  <div class="toolbar" id="toolbar"></div>
+  <div id="content-wrap"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div id="modal-root"></div>
+
+<script>
+// =====================================================
+// DATA
+// =====================================================
+const DEFAULT_SECTIONS = [
+  {id:"00",name:"Estrategia"},{id:"01",name:"Diagnostico"},{id:"02",name:"Perfil deportista"},
+  {id:"03",name:"Docentes"},{id:"04",name:"Planes"},{id:"05",name:"Competencias"},
+  {id:"06",name:"Infraestructura y presupuesto"},{id:"07",name:"Comunidad"},
+  {id:"08",name:"Gestion y KPIs"},{id:"09",name:"Administracion y normativa"}
+];
+
+const DEFAULT_DOCS = {
+"tesis-y-modelo":{title:"Tesis y modelo",sectionId:"00",md:`## La tesis
+
+En el deporte escolar chileno hay un lugar vacante.
+
+Los colegios que compiten bien generalmente lo hacen a costa de la formacion: concentran recursos en pocas ramas, priorizan resultados sobre procesos y dejan al 80% de los alumnos con una clase de educacion fisica que no los marca. Los que forman bien rara vez compiten: tienen buenos programas pero no logran resultados deportivos que posicionen al colegio.
+
+El colegio que logre hacer las dos cosas a la vez, formar al 100% de sus alumnos con un perfil atletico medible y competir con seriedad en las ramas que elija, con un proyecto profesional y de largo plazo, sera la referencia del pais.
+
+Ninguna familia deberia buscar fuera lo que puede encontrar dentro del colegio. Hoy muchas lo hacen: pagan clubes, academias y entrenadores particulares porque el colegio no les ofrece un camino deportivo con progresion, datos y profesionalismo. Esa fuga es la evidencia de una demanda no cubierta y una oportunidad concreta para el colegio que decida tomarla.
+
+## El modelo: tres niveles y una comunidad
+
+El modelo tiene tres niveles secuenciales y una capa transversal. Cada alumno entra por Formacion. Los que quieren mas avanzan a Desarrollo. Los que tienen condiciones y ambicion llegan a Elite. La Comunidad envuelve todo.
+
+### Nivel 1: FORMACION (100% de los alumnos)
+
+Que es: el programa de Educacion Fisica del colegio, redisenado para que cada alumno egrese cumpliendo un perfil atletico medible curso a curso. No es solo "hacer la clase": es un sistema donde se evalua, se registra y se hace seguimiento del desarrollo motor y fisico de todos.
+
+- Aplica desde prekinder hasta IV medio
+- Se mide con baterias de evaluacion validadas (entrada en marzo, salida en octubre)
+- Cada alumno tiene un registro longitudinal de su desarrollo
+- Los datos alimentan decisiones: si un curso esta bajo en coordinacion, se ajusta el plan
+- Los apoderados reciben reporte de avance dos veces al ano
+
+Respaldo: el concepto de Physical Literacy (Whitehead, 2010) y las baterias ALPHA (Ruiz et al., 2011) fundamentan que todos los ninos deben alcanzar competencias motrices minimas medibles en contexto escolar.
+
+### Nivel 2: DESARROLLO (el que elige un deporte)
+
+Que es: talleres y ramas deportivas con progresion real. El alumno que quiere ir mas alla de la clase encuentra un camino estructurado: taller inicial, intermedio, preseleccion, seleccion.
+
+- Cada rama tiene un plan anual por escrito con progresiones tecnicas por categoria
+- Cargas semanales adecuadas a la edad (no se entrena igual a un alumno de 10 que a uno de 16)
+- Criterios de seleccion transparentes y conocidos por alumnos y familias
+- Docentes y entrenadores con planificacion visible en plataforma
+- Registro de asistencia y evolucion de cada deportista
+
+Respaldo: el modelo DMSP de Cote (2014) y el LTAD de Balyi (2013) establecen que el desarrollo deportivo tiene etapas y que forzar especializacion temprana es contraproducente. El camino multideporte produce mejores deportistas a largo plazo (Myer et al., 2015).
+
+### Nivel 3: ELITE (apoyo real al que quiere mas)
+
+Que es: un protocolo de apoyo individual para el alumno que tiene condiciones y ambicion de competir a nivel alto. No es inventar un centro de alto rendimiento dentro del colegio. Es darle al deportista lo que necesita sin que tenga que irse.
+
+- Horarios especiales: gimnasio 7 a 8 AM con preparador fisico a cargo
+- Coordinacion academica para compatibilizar entrenamientos y evaluaciones
+- Evaluacion preventiva de lesiones con kinesiologo
+- Puente con clubes y federaciones cuando el nivel del alumno supera lo que el colegio puede ofrecer
+- Plan individual por escrito, con metas y seguimiento
+
+Respaldo: el principio de "ganar bien" se apoya en la evidencia sobre los riesgos de la especializacion temprana y el sobreentrenamiento en menores (DiFiori et al., 2014; LaPrade et al., 2016). Elite no significa malas practicas.
+
+### Capa transversal: COMUNIDAD
+
+Que es: apoderados y staff haciendo deporte en el colegio. No es un extra ni un negocio: es identidad, pertenencia y la mejor publicidad que existe.
+
+- Running team institucional, ligas internas, clases para adultos en horarios valle
+- Horarios que no compiten con el uso escolar
+- Autofinanciado o con costo simbolico
+- Docentes del area con horas extra pagadas (nadie trabaja gratis)
+
+Valor: una familia que hace deporte en el colegio no se va. Un padre que entrena los sabados en la cancha del colegio habla del colegio el lunes en la oficina.
+
+## Como se conectan los niveles
+
+El camino es de abajo hacia arriba y nadie se salta etapas:
+
+- Formacion detecta: los datos del perfil atletico identifican alumnos con condiciones para invitarlos a Desarrollo
+- Desarrollo prepara: la progresion por ramas construye el deportista que eventualmente puede llegar a Elite
+- Elite conecta: cuando un alumno supera el techo del colegio, se le ayuda a dar el salto a clubes o federaciones en vez de retenerlo artificialmente
+
+Lo que baja:
+- Los datos de Desarrollo y Elite retroalimentan la planificacion de Formacion
+- Los seleccionados son referentes visibles para los alumnos en Formacion
+- Comunidad genera el ecosistema donde todo esto tiene sentido y sostenibilidad
+
+## Principios de gestion
+
+**Aportar, no criticar lo existente.** Este proyecto suma sobre lo que hay. Ningun documento, presentacion o conversacion puede leerse como critica a la gestion actual. El framing es siempre "potenciar" y "construir sobre".
+
+**Ganar bien.** Elite sin malas practicas. No se adelantan categorias para ganar torneos. No se sobrecargan menores. No se presiona academicamente a seleccionados. Los resultados se buscan haciendo las cosas bien, no tomando atajos.
+
+**Multideporte primero, especializacion a su tiempo.** La evidencia es clara: especializar antes de los 12-13 anos aumenta lesiones, abandono y burnout. El colegio promueve la practica de multiples deportes en los ciclos menores y acompana la especializacion cuando corresponde por edad y desarrollo.
+
+**Decisiones con datos, no con impresiones.** El perfil atletico se mide. La asistencia se registra. Las lesiones se documentan. El presupuesto se controla. Los informes a rectoria llevan numeros, no anecdotas. Para eso existen las plataformas propias (SCM, CoachDrill, AutoCut).
+
+**El colegio conecta, no retiene.** Cuando un deportista alcanza un nivel que supera lo que el colegio puede ofrecer, se le ayuda a conectar con clubes y federaciones. Retenerlo seria frenar su desarrollo. Que un exalumno compita a nivel nacional o internacional ES un resultado del colegio.
+
+## Lo que este proyecto NO es
+
+- No es un club deportivo dentro del colegio. Es un departamento del colegio con estandares profesionales.
+- No es un programa solo para seleccionados. El 100% de los alumnos esta incluido desde Formacion.
+- No es una critica a lo que se hace hoy. Es una propuesta de evolucion.
+- No es un proyecto que necesita infraestructura nueva para empezar. Se trabaja con lo que hay y se mejora en el camino.
+- No es un gasto. Es una inversion con retorno medible en retencion de familias, posicionamiento y resultados.
+
+## Propuesta de valor para el colegio
+
+**Para las familias:** un programa deportivo con la misma seriedad que el programa academico. Datos de sus hijos, progresion visible, profesionales a cargo. Razon para no buscar afuera.
+
+**Para el colegio:** diferenciacion real en un mercado donde todos los colegios particulares del sector oriente dicen tener "buen deporte" pero pocos pueden demostrarlo con datos. Retencion de familias que hoy gastan en deporte externo. Posicionamiento como referente.
+
+**Para los docentes:** un proyecto con estructura, indicadores y acompanamiento. Saber que se espera de ellos, con que recursos cuentan y como se mide su trabajo. Desarrollo profesional real.
+
+**Para los alumnos:** un camino deportivo claro desde que entran al colegio hasta que egresan. Saber donde estan, hacia donde pueden ir y que necesitan para llegar.
+
+## Archivos de referencia
+
+Guardar aqui la presentacion enviada (PDF) y la carta original.
+Ver documento de bibliografia y fundamentos para las fuentes que respaldan cada componente del modelo.`},
+"bibliografia-y-fundamentos":{title:"Bibliografia y fundamentos",sectionId:"00",md:`Referencias que respaldan cada pilar del modelo. Solo fuentes verificables y reconocidas.
+
+## Desarrollo deportivo a largo plazo (LTAD)
+
+Base teorica del modelo de tres niveles (Formacion, Desarrollo, Elite).
+
+- Balyi, I., Way, R. & Higgs, C. (2013). Long-Term Athlete Development. Human Kinetics. [Ver en editorial](https://us.humankinetics.com/products/long-term-athlete-development)
+- Sport for Life Society (2019). Long-Term Development in Sport and Physical Activity 3.0. CS4L. [PDF gratis](https://sportforlife.ca/wp-content/uploads/2019/06/Long-Term-Development-in-Sport-and-Physical-Activity-3.0.pdf)
+- Cote, J. & Vierimaa, M. (2014). The developmental model of sport participation: 15 years after its first conceptualization. Science & Sports, 29, S63-S69. [PDF gratis](https://digitalcommons.usu.edu/hper_facpub/105)
+- Lloyd, R.S. & Oliver, J.L. (Eds.) (2020). Strength and Conditioning for Young Athletes (2da ed.). Routledge. [Ver en editorial](https://www.routledge.com/Strength-and-Conditioning-for-Young-Athletes-Science-and-Application/Lloyd-Oliver/p/book/9780815361831)
+
+Que respaldan: la idea de que el camino deportivo tiene etapas diferenciadas y que cada una necesita objetivos, metodos y evaluaciones distintas. Forzar competencia o especializacion temprana es contraproducente.
+
+## Multideporte y riesgos de la especializacion temprana
+
+Base para el principio "multideporte primero, especializacion a su tiempo".
+
+- Myer, G.D. et al. (2015). Sports Specialization, Part I. Sports Health, 7(5), 437-442. [PDF gratis](https://dash.harvard.edu/bitstreams/7312037e-0ac7-6bd4-e053-0100007fdf3b/download)
+- LaPrade, R.F. et al. (2016). AOSSM Early Sport Specialization Consensus Statement. Orthopaedic Journal of Sports Medicine, 4(4). [PDF gratis](https://journals.sagepub.com/doi/full/10.1177/2325967116644241)
+- DiFiori, J.P. et al. (2014). Overuse injuries and burnout in youth sports. British Journal of Sports Medicine, 48(4), 287-288. [Ver en PubMed](https://pubmed.ncbi.nlm.nih.gov/24366013/)
+- Cote, J., Baker, J. & Abernethy, B. (2007). Practice and play in the development of sport expertise. Handbook of Sport Psychology (3ra ed.). Wiley. [Ver en editorial](https://onlinelibrary.wiley.com/doi/10.1002/9781118270011.ch8)
+
+Que respaldan: la evidencia es clara. Especializar antes de los 12-13 anos aumenta lesiones, abandono y burnout sin mejorar las probabilidades de exito deportivo. El camino multideporte produce mejores resultados a largo plazo.
+
+## Alfabetizacion fisica (Physical Literacy)
+
+Base para el nivel Formacion: perfil atletico medible para el 100% de los alumnos.
+
+- Whitehead, M. (2010). Physical Literacy: Throughout the Lifecourse. Routledge. [Ver en editorial](https://www.routledge.com/Physical-Literacy-Throughout-the-Lifecourse/Whitehead/p/book/9780415487436)
+- Tremblay, M.S. et al. (2018). Global Matrix 3.0 Physical Activity Report Card. Journal of Physical Activity and Health, 15(S2), S251-S273. [PDF gratis](https://strathprints.strath.ac.uk/66253/1/Aubert_etal_JPAH_2018_Global_matrix_3_0_physical_activity_report_card_grades_for_children.pdf)
+- Longmuir, P.E. et al. (2015). The Canadian Assessment of Physical Literacy (CAPL). BMC Public Health, 15, 767. [PDF gratis](https://pmc.ncbi.nlm.nih.gov/articles/PMC4532252/)
+
+Que respaldan: la idea de que todos los ninos deben alcanzar un nivel minimo de competencia motriz y condicion fisica, medible y comparable en el tiempo. No es solo para los que "se les da bien el deporte".
+
+## Evaluacion fisica en edad escolar
+
+Base para las baterias de evaluacion y el perfil del deportista.
+
+- Ortega, F.B. et al. (2008). Physical fitness in childhood and adolescence: a powerful marker of health. International Journal of Obesity, 32, 1-11. [Ver en Nature](https://www.nature.com/articles/0803774)
+- Ruiz, J.R. et al. (2011). ALPHA health-related fitness test battery for children and adolescents. British Journal of Sports Medicine, 45(6), 518-524. [PDF gratis](https://profith.ugr.es/wp-content/uploads/2022/10/INGLES-1.pdf)
+- Castro-Pinero, J. et al. (2009). Criterion-related validity of field-based fitness tests in youth. British Journal of Sports Medicine. [Ver en PubMed](https://pubmed.ncbi.nlm.nih.gov/19364756/)
+
+Que respaldan: existen baterias validadas, aplicables en contexto escolar con recursos minimos, que permiten hacer seguimiento longitudinal del desarrollo fisico de los alumnos. No es necesario inventar tests.
+
+## Gestion y liderazgo deportivo escolar
+
+Base para el enfoque de gestion profesional del area.
+
+- Burton, L.J. & Peachey, J.W. (2014). Organizational culture mediates the relationship between transformational leadership and work outcomes. Journal of Intercollegiate Sport, 7(2). [PDF gratis](https://journals.ku.edu/jis/article/view/10163)
+- Light, R.L. (2013). Game Sense: Pedagogy for Performance, Participation and Enjoyment. Routledge. [Ver en editorial](https://www.routledge.com/Game-Sense-Pedagogy-for-Performance-Participation-and-Enjoyment/Light/p/book/9780415532884)
+- Lara-Bercial, S. et al. (2017). International Sport Coaching Framework Version 1.2. ICCE. [PDF gratis](https://www.olympics.com/athlete365/app/uploads/2022/04/iscf-1.2-10-7-15.pdf)
+
+Que respaldan: el area deportiva de un colegio necesita gestion profesional con indicadores, planificacion y acompanamiento docente, igual que cualquier otra area del colegio.
+
+## Marco curricular chileno
+
+Alineacion con el curriculum nacional.
+
+- MINEDUC Chile. Bases Curriculares Educacion Fisica y Salud, 1ro basico a II medio. [Ver en Curriculum Nacional](https://www.curriculumnacional.cl/portal/Educacion-General/Educacion-fisica-y-salud/)
+- Instituto Nacional de Deportes (IND). Politica Nacional de Actividad Fisica y Deporte 2016-2025. [PDF gratis](https://transparencia.mindep.cl/document/7LDdw7Xd1Y.pdf)
+
+Que respaldan: el proyecto no reemplaza el curriculum, lo potencia. Los objetivos de aprendizaje del MINEDUC se cumplen y se superan dentro del modelo de tres niveles.
+
+## Proteccion de datos de menores
+
+Base para la gestion responsable de datos.
+
+- Ley 21.719 sobre Proteccion de Datos Personales (Chile, 2024). [Ver texto oficial](https://www.bcn.cl/leychile/navegar?idNorma=1209272)
+- Reglamento General de Proteccion de Datos (GDPR), Union Europea, como referencia de mejores practicas.
+
+Que respaldan: cualquier plataforma que maneje datos de menores debe cumplir con consentimiento informado, minimizacion y derecho de acceso. Llegar con esto resuelto es un diferenciador.
+
+## Nota importante
+
+Esta bibliografia no es decorativa. Cada referencia esta aqui porque respalda una decision concreta del modelo. Si se agrega un nuevo componente al proyecto, debe poder asociarse a evidencia. Si no se encuentra respaldo, hay que cuestionar si es una buena idea o solo una ocurrencia.`},
+"benchmark-colegios-zona":{title:"Benchmark colegios de la zona",sectionId:"01",md:`Registrar lo que ya se sabe del circuito y completar con datos publicos.
+
+## Por cada colegio relevante (sector oriente)
+- Deportes fuertes y resultados recientes
+- Estructura del area (jefatura, cantidad de docentes si se sabe)
+- Infraestructura destacada
+- Que hacen bien que valga la pena estudiar
+- Que hacen mal que no hay que copiar (malas practicas conocidas)
+
+## Preguntas guia
+- Contra quien se compara el colegio hoy y contra quien deberia
+- En que deportes hay espacio para ser primeros rapido
+- Que torneos y ligas importan de verdad en la zona
+
+## Salida esperada
+Tabla comparativa + 3 oportunidades concretas de diferenciacion`},
+"catastro-docentes-horas":{title:"Catastro de docentes y horas",sectionId:"01",md:`## Por cada persona del area
+- Nombre, rol, contrato (horas totales y distribucion)
+- Formacion y especialidad deportiva
+- Cursos y talleres que dicta, selecciones que dirige
+- Anos en el colegio
+- Evaluaciones previas si existen
+
+## Estructura del area
+- Organigrama real (no el del papel): quien responde a quien
+- Horas totales del area vs horas de clases, talleres, selecciones y administracion
+- Vacios de cobertura: deportes o niveles sin responsable claro
+
+## Salida esperada
+Matriz personas x funciones. Detectar sobrecargas, duplicidades y vacios.`},
+"catastro-infraestructura":{title:"Catastro de infraestructura y materiales",sectionId:"01",md:`Completar en la primera semana con recorrido presencial.
+
+## Por cada recinto (cancha, gimnasio, sala, camarin, bodega)
+- Nombre y ubicacion
+- Estado (bueno / regular / malo) y que necesita
+- Capacidad y deportes que soporta
+- Horario de uso actual y horas muertas
+- Responsable de llaves y mantencion
+
+## Materiales
+- Inventario por deporte (cantidad y estado)
+- Que falta para operar bien el ano
+- Que esta guardado sin uso
+
+## Foco especial
+Horas muertas de gimnasio y canchas: son la materia prima de los quick wins (entrenamiento 7 a 8 AM, programas de apoderados, academias vespertinas).
+
+## Salida esperada
+Tabla de recintos + lista de compras priorizada + mapa de horas disponibles`},
+"pauta-entrevista-apoderados-alumnos":{title:"Voz de apoderados y alumnos",sectionId:"01",md:`Objetivo: medir la demanda real, dentro y fuera del colegio.
+
+## Apoderados (encuesta breve o conversaciones)
+1. Que actividad deportiva hace su hijo/a fuera del colegio y por que la eligio afuera
+2. Cuanto gastan al mes en deporte fuera del colegio (rango)
+3. Que tendria que ofrecer el colegio para preferirlo
+4. Le interesaria hacer deporte usted en el colegio (que, en que horario)
+5. Que nota le pone al deporte del colegio hoy y por que
+
+## Alumnos (por ciclo)
+1. Que deporte te gustaria que existiera o creciera en el colegio
+2. Que te motiva o desmotiva de las clases y talleres actuales
+3. A los seleccionados: que te falta para entrenar y competir mejor
+
+## Salida esperada
+- Mapa de fuga: cuantas familias consumen deporte afuera y en que
+- Lista de demanda no cubierta (insumo directo para nivel Desarrollo y Comunidad)`},
+"pauta-entrevista-direccion":{title:"Entrevista a direccion y rectoria",sectionId:"01",md:`Objetivo: entender que espera el colegio del deporte antes de proponer nada.
+
+## Preguntas
+1. Cuando piensan en el deporte del colegio en 5 anos, que les gustaria ver
+2. Que rol juega el deporte en la promesa que le hacen a las familias
+3. Que esta funcionando bien hoy y no hay que tocar
+4. Que resultados deportivos les importan de verdad y cuales no
+5. Cuanta prioridad tiene el deporte frente a lo academico en horario y recursos
+6. Que presupuesto anual maneja el area y quien lo aprueba
+7. Que esperan del deporte para apoderados y staff
+8. Que conflictos historicos ha tenido el area (horarios, canchas, viajes, apoderados)
+9. Como miden hoy si el area deportiva lo esta haciendo bien
+10. Que significaria para ustedes que esto fuera un exito en un ano
+
+## Registrar despues de la reunion
+- Expectativas explicitas vs implicitas
+- Palabras que usan ellos (adoptar su lenguaje)
+- Semaforo: que urge, que importa, que esperar`},
+"pauta-entrevista-docentes":{title:"Entrevista a docentes y entrenadores",sectionId:"01",md:`Objetivo: conocer al equipo antes de evaluar. Escuchar primero, opinar despues.
+
+## Preguntas
+1. Cuentame tu historia en el colegio y tu rol actual
+2. Que es lo que mejor funciona del area hoy
+3. Que te frustra o te frena para hacer mejor tu trabajo
+4. Como planificas tus clases o entrenamientos hoy
+5. Que evaluaciones aplicas a tus alumnos y que haces con los datos
+6. Que necesitarias para dar un salto de calidad
+7. Que opinas del nivel deportivo del colegio frente a otros de la zona
+8. Donde te ves aportando mas en un proyecto nuevo
+
+## Senales a registrar
+- Disposicion al cambio (alta, media, resistente)
+- Nivel tecnico y de planificacion real
+- Lideres naturales del grupo
+- Temas sensibles que se repiten entre entrevistas
+
+## Regla
+Ninguna promesa individual en estas conversaciones. Solo escuchar y agradecer.`},
+"baterias-evaluacion":{title:"Baterias de evaluacion fisica",sectionId:"02",md:`## Criterios para elegir tests
+- Aplicables en una clase normal con el material disponible
+- Comparables ano a ano (misma bateria, mismas condiciones)
+- Con referencias por edad cuando existan
+- Seguros para la edad (nada de maximos en ninos pequenos)
+
+## Bateria base sugerida (ajustar con el equipo)
+- Salto horizontal a pies juntos
+- Velocidad lineal (10 y 20 metros segun edad)
+- Test de agilidad con cambio de direccion
+- Resistencia aerobica (test progresivo por etapas)
+- Lanzamiento de balon medicinal (categorias mayores)
+- Flexibilidad (sit and reach)
+- Coordinacion (circuito estandarizado en ciclos menores)
+
+## Calendario
+- Medicion de entrada (marzo-abril) y de salida (octubre-noviembre)
+- Datos cargados en plataforma propia para seguimiento longitudinal
+
+## Pendiente
+Definir protocolos exactos por test (documento aparte cuando se valide la bateria)`},
+"perfil-atletico-estructura":{title:"Perfil del deportista - estructura",sectionId:"02",md:`Base: adaptar el perfil ya desarrollado (prekinder a IV medio) a la realidad y lenguaje del colegio. Definirlo CON el colegio, no llegar con el cerrado.
+
+## Dimensiones sugeridas
+1. Capacidades motrices basicas (coordinacion, equilibrio, lateralidad)
+2. Capacidades fisicas (fuerza, velocidad, resistencia, flexibilidad)
+3. Habilidades deportivas transversales (lanzar, atrapar, golpear, saltar, nadar si aplica)
+4. Dimension cognitiva y tactica (lectura de juego, toma de decisiones)
+5. Dimension actitudinal (esfuerzo, trabajo en equipo, juego limpio)
+
+## Por ciclo
+- **Prekinder a 2do basico:** patrones motores y juego
+- **3ro a 6to basico:** multideporte y habilidades transversales
+- **7mo a I medio:** orientacion deportiva y desarrollo
+- **II a IV medio:** consolidacion, especializacion y proyeccion
+
+## Regla de oro
+Cada dimension debe ser medible curso a curso. Si no se puede medir, se redefine.`},
+"rubrica-medicion":{title:"Rubricas y reporte de avance",sectionId:"02",md:`## Estructura de rubrica por dimension
+- **Nivel 1:** en desarrollo inicial
+- **Nivel 2:** en progreso
+- **Nivel 3:** logrado para su curso
+- **Nivel 4:** destacado
+
+## Reporte al apoderado (2 veces al ano)
+- Estado del alumno en cada dimension del perfil
+- Progreso respecto a su propia medicion anterior (foco en avance personal)
+- Sugerencias concretas y positivas
+- Nunca comparaciones publicas entre alumnos
+
+## Uso interno
+- Promedios por curso para detectar necesidades de ajuste en planes
+- Identificacion temprana de talentos para nivel Desarrollo y Elite`},
+"evaluacion-docente":{title:"Evaluacion y acompanamiento docente",sectionId:"03",md:`## Ciclo anual
+1. Marzo: acuerdo de metas individuales (alineadas a KPIs del area)
+2. Abril a junio: observacion de clases con pauta conocida por todos
+3. Julio: retroalimentacion de medio ano
+4. Octubre-noviembre: evaluacion de cierre con evidencia
+5. Diciembre: plan del ano siguiente
+
+## Pauta de observacion (dimensiones)
+- Inicio, desarrollo y cierre de la sesion
+- Tiempo de actividad motriz real de los alumnos
+- Progresion y adaptacion por niveles dentro del grupo
+- Clima y trato
+- Seguridad
+
+## Principio
+La evaluacion existe para desarrollar personas, no para pillarlas. Todo se conversa cara a cara y con evidencia.`},
+"gestion-del-cambio":{title:"Gestion del cambio con el equipo",sectionId:"03",md:`El proyecto se socializa, no se impone. Heredar un equipo exige metodo.
+
+## Etapas
+1. **Escuchar (mes 1):** entrevistas individuales, cero anuncios de cambios
+2. **Devolver (mes 2):** presentar al equipo lo que se escucho, reconocer lo bueno existente
+3. **Co-construir (mes 2-3):** definir el perfil del deportista y los planes CON ellos
+4. **Formalizar (mes 3+):** roles, metas e indicadores por escrito
+5. **Acompanar:** reuniones semanales de area cortas y con tabla
+
+## Errores a evitar
+- Citar al equipo a anunciar el proyecto el primer dia
+- Comparar en publico con la gestion anterior
+- Prometer recursos que aun no estan aprobados
+- Cambiar horarios o cargas sin conversacion individual previa
+
+## Aliados
+Identificar en el diagnostico 2 o 3 lideres naturales y darles rol visible temprano.`},
+"matriz-competencias":{title:"Matriz de competencias del equipo",sectionId:"03",md:`Cruce entre lo que el proyecto necesita y lo que el equipo actual tiene.
+
+## Competencias a mapear (escala 1 a 4)
+- Dominio tecnico de su deporte o area
+- Planificacion y uso de datos
+- Manejo de grupo y clima de clase
+- Trabajo en equipo con colegas
+- Disposicion al cambio y aprendizaje
+- Relacion con apoderados
+
+## Como llenarla
+- Con evidencia: observacion de clases, entrevistas, resultados
+- Nunca con rumores ni con la opinion de un solo tercero
+
+## Salida esperada
+- Plan de desarrollo individual para cada persona
+- Deteccion de brechas que requieren capacitacion o incorporaciones
+- Base objetiva para conversaciones dificiles si las hay`},
+"perfiles-de-cargo":{title:"Perfiles de cargo del area",sectionId:"03",md:`Definir por escrito antes de cualquier contratacion o reestructuracion.
+
+## Cargos tipo
+1. **Jefe de Departamento:** direccion, presupuesto, KPIs, relacion con rectoria
+2. **Coordinador por rama o ciclo** (segun tamano del area)
+3. **Docente de Educacion Fisica:** plan comun y evaluaciones del perfil
+4. **Entrenador de seleccion:** desarrollo y competencia de su rama
+5. **Preparador fisico** (o servicio externo)
+6. **Apoyo administrativo** (puede ser parcial)
+
+## Por cada cargo definir
+- Mision en una frase
+- Funciones (maximo 8)
+- Requisitos y competencias
+- A quien reporta y a quien dirige
+- Indicadores con los que se evalua
+
+## Regla
+Cargo que no tiene indicador definido no esta bien disenado.`},
+"complementos":{title:"Complementos del proyecto",sectionId:"04",md:`## Preparacion fisica
+- Programa por categorias para selecciones
+- Uso del gimnasio con horarios protegidos (incluido 7 a 8 AM)
+
+## Kinesiologia y prevencion
+- Convenio o servicio para evaluacion preventiva de seleccionados
+- Protocolo de manejo y retorno de lesiones
+- Registro de lesiones del ano (aprender de los datos)
+
+## Psicologia deportiva y formacion
+- Talleres por categoria: manejo de presion, trabajo en equipo, juego limpio
+- Charlas para apoderados de seleccionados (rol del apoderado en el deporte)
+
+## Nutricion (etapa 2)
+- Charlas generales por ciclo
+- Orientacion individual solo para elite y con profesional a cargo`},
+"plan-educacion-fisica":{title:"Plan comun de Educacion Fisica",sectionId:"04",md:`El nivel Formacion del modelo. Aplica al 100% de los alumnos.
+
+## Estructura por ciclo
+- Objetivos anuales alineados al perfil del deportista y al curriculum nacional
+- Unidades por semestre con foco multideporte
+- Evaluaciones del perfil integradas al plan (entrada y salida)
+
+## Estandares de una buena clase
+- Actividad motriz real sobre el 60% del tiempo de la sesion
+- Todos participan, con adaptaciones por nivel dentro del grupo
+- Cierre con proposito (que aprendimos, que viene)
+
+## Coordinacion
+- Plan compartido y visible para todo el equipo (en plataforma)
+- Un docente nuevo debe poder tomar un curso y saber exactamente que toca`},
+"planes-por-deporte-y-seleccion":{title:"Planes por deporte y selecciones",sectionId:"04",md:`Niveles Desarrollo y Elite del modelo.
+
+## Por cada rama deportiva definir
+- Camino del alumno: taller inicial, intermedio, preseleccion, seleccion
+- Progresion tecnica por categoria (que se aprende en cada etapa)
+- Carga semanal por categoria (sesiones y duracion adecuadas a la edad)
+- Calendario de competencias del ano
+- Responsable de la rama
+
+## Selecciones
+- Criterios de seleccion transparentes y conocidos por alumnos y apoderados
+- Compromiso del seleccionado por escrito (asistencia, conducta, academico)
+- Plan anual de entrenamiento por escrito (no en la cabeza del entrenador)
+- Registro de asistencia y evolucion en plataforma
+
+## Elite
+Protocolo de apoyo individual: horarios especiales, preparacion fisica, coordinacion academica, puente con clubes y federaciones.`},
+"calendario-y-criterios":{title:"Competencias: calendario y criterios",sectionId:"05",md:`## Calendario anual
+- Mapa de todas las competencias del ano por rama y categoria
+- Clasificar: formativas, ligas escolares, nacionales, federadas
+- Cruzar con calendario academico (pruebas, salidas, actividades del colegio)
+- Publicar a familias con anticipacion (fechas tentativas en marzo)
+
+## Criterios de participacion
+- **Formacion:** todos compiten en instancias formativas internas
+- **Desarrollo:** participacion por progresion, con rotacion justa
+- **Elite:** nomina por criterios deportivos transparentes
+
+## Eventos propios
+Evaluar organizar un torneo con sello del colegio (posicionamiento en la zona).
+
+## Adultos
+Calendario de instancias para apoderados y staff (corridas, ligas internas, torneos).`},
+"protocolos-viajes-y-reclamos":{title:"Protocolos viajes y reclamos",sectionId:"05",md:`## Viajes y salidas
+- Autorizacion escrita de apoderados con datos de emergencia
+- Ratio adultos/alumnos definido por edad
+- Plan de viaje por escrito: transporte, horarios, responsables, contactos
+- Protocolo de accidente en viaje (paso a paso y telefonos)
+
+## Conducta en competencia
+- Codigo de conducta de alumnos, docentes y apoderados espectadores
+- El colegio compite bien: cero tolerancia a malas practicas propias
+
+## Reclamos y suspensiones
+- Registrar todo por escrito el mismo dia (hechos, testigos, fotos si aplica)
+- Canal formal segun organizacion (liga, asociacion, federacion)
+- Comunicacion a familias: que paso, que se hizo, que sigue
+- Aprendizaje: cada caso alimenta este protocolo`},
+"plan-inversion-3-anos":{title:"Plan de inversion a 3 anos",sectionId:"06",md:`Proyeccion para presentar a rectoria una vez cerrado el diagnostico.
+
+## Ano 1: ordenar y operar
+- Reposicion de materiales criticos
+- Mejoras menores de recintos (seguridad e iluminacion primero)
+- Plataforma de gestion operando (clases, selecciones, evaluaciones)
+
+## Ano 2: crecer
+- Inversiones medianas segun demanda detectada (nueva disciplina, equipamiento mayor)
+- Programas de adultos consolidados y autofinanciados
+- Evento deportivo propio instalado
+
+## Ano 3: diferenciarse
+- Inversion estrella segun el proyecto (definir con el colegio)
+- Tecnologia avanzada de analisis para selecciones
+- Posicionamiento: el colegio como referencia deportiva de la zona
+
+## Formato por cada inversion propuesta
+Que es, a que nivel del modelo sirve, costo estimado, retorno esperado (deportivo, de retencion de familias o de ingresos).`},
+"presupuesto-anual-plantilla":{title:"Presupuesto anual - plantilla",sectionId:"06",md:`## Ingresos (si aplica)
+- Aporte del colegio al area
+- Academias o talleres pagados
+- Programas de adultos
+- Auspicios o alianzas
+
+## Gastos
+1. Personal: horas docentes, entrenadores, servicios externos (PF, kine)
+2. Competencias: inscripciones, arbitrajes, transporte, alimentacion
+3. Materiales: reposicion e incorporacion por deporte
+4. Infraestructura: mantencion de recintos y equipamiento
+5. Tecnologia: plataformas, video, evaluaciones
+6. Formacion: capacitacion del equipo
+7. Eventos propios
+8. Imprevistos (5 a 10%)
+
+## Reglas de gestion
+- Todo gasto se asocia a un nivel del modelo (Formacion, Desarrollo, Elite, Comunidad)
+- Revision mensual de ejecutado vs presupuestado
+- Ninguna sorpresa a rectoria: desviaciones se informan antes, no despues`},
+"tecnologia-suite":{title:"Tecnologia del departamento",sectionId:"06",md:`Ventaja diferencial: plataformas propias ya construidas y en uso.
+
+## Suite propuesta
+1. **Gestion del area (SCM):** alumnos, selecciones, asistencia, comunicaciones, evaluaciones del perfil atletico con seguimiento curso a curso
+2. **Planificacion de entrenamientos (CoachDrill):** planes visibles y estandarizados de todo el equipo docente
+3. **Analisis de video (AutoCut):** registro y analisis de partidos de selecciones
+
+## Argumentos para rectoria
+- Costo marginal bajo frente a soluciones comerciales
+- Hecho a la medida del modelo del colegio
+- Datos del area en un solo lugar para reportes y decisiones
+
+## Pendientes de implementacion
+- Definir titularidad de los datos y hosting (ver carpeta 09, Ley 21.719)
+- Plan de carga inicial y capacitacion del equipo
+- Piloto con una rama antes de masificar`},
+"programas-apoderados-staff":{title:"Programas para apoderados y staff",sectionId:"07",md:`La capa transversal del modelo. Objetivo: pertenencia, identidad y retencion.
+
+## Ideas base (validar con la encuesta de diagnostico)
+- Running team del colegio (entrenamiento semanal + corridas con camiseta institucional)
+- Ligas internas de apoderados (futbol, tenis, padel segun infraestructura)
+- Clases para adultos en horarios valle (funcional, yoga, spinning)
+- Escuela deportiva familiar de fin de semana
+- Torneo aniversario con participacion de toda la comunidad
+
+## Modelo de operacion
+- Horarios que no compitan con el uso escolar (mananas, tardes-noche, sabados)
+- Autofinanciado o con costo simbolico
+- Docentes del area con horas extra pagadas (nadie trabaja gratis)
+
+## Indicadores
+- Adultos activos por mes
+- Familias con mas de un miembro haciendo deporte en el colegio
+- Encuesta anual de satisfaccion de comunidad`},
+"kpis-e-informes":{title:"KPIs e informes a rectoria",sectionId:"08",md:`## Indicadores por nivel del modelo
+
+### FORMACION
+- % de alumnos evaluados en el perfil (meta: 100%)
+- % de alumnos que mejoran su medicion anterior
+
+### DESARROLLO
+- Alumnos en talleres y ramas (numero y % de la matricula)
+- Retencion en talleres (inicio vs fin de ano)
+
+### ELITE
+- Resultados deportivos por rama (definir metas realistas por ano)
+- Seleccionados con plan individual activo
+- Lesiones por cada 100 deportistas (a la baja)
+
+### COMUNIDAD
+- Adultos activos por mes
+- Familias que dejan de consumir deporte externo (encuesta anual)
+
+### GESTION
+- Ejecucion presupuestaria (desviacion bajo 5%)
+- Clima del equipo docente (encuesta semestral)
+
+## Informe a rectoria
+- **Mensual:** una pagina (avances, alertas, proximos hitos)
+- **Semestral:** presentacion con datos del perfil y resultados
+- **Regla:** malas noticias primero y con plan de accion incluido`},
+"plan-90-dias":{title:"Plan de los primeros 90 dias",sectionId:"08",md:`## Mes 1: escuchar y levantar
+- Entrevistas: rectoria, todos los docentes del area, muestra de apoderados y alumnos
+- Catastros: infraestructura, materiales, docentes y horas, calendario actual
+- Observacion de clases y entrenamientos (sin intervenir)
+- **CERO cambios anunciados este mes**
+
+## Mes 2: definir y devolver
+- Presentar diagnostico a rectoria (sin culpas, con oportunidades)
+- Devolucion al equipo: lo que se escucho y lo que se viene
+- Co-construccion del perfil del deportista del colegio con el equipo
+- Acuerdo de KPIs y presupuesto con rectoria
+
+## Mes 3: primeros resultados visibles
+- Quick win 1: gimnasio abierto 7 a 8 AM con profesional a cargo
+- Quick win 2: calendario deportivo anual publicado a las familias
+- Quick win 3: piloto de plataforma en una rama
+- Plan anual completo presentado y aprobado
+
+## Criterio de exito de los 90 dias
+Rectoria con claridad del rumbo, equipo sin heridos y 3 mejoras que todos puedan ver.`},
+"datos-y-ley-21719":{title:"Datos personales y Ley 21.719",sectionId:"09",md:`Las plataformas del area manejan datos de menores. Llegar con esto resuelto es un sello de profesionalismo que casi nadie mas trae.
+
+## Principios de operacion
+- Minimizacion: registrar solo lo necesario para el fin deportivo y formativo
+- Consentimiento informado de apoderados para datos y para imagenes/video
+- Datos de salud de deportistas: tratamiento reservado y acceso restringido
+- Titularidad: los datos son del colegio y de las familias, no del proveedor
+
+## Checklist de implementacion
+- Redactar consentimiento de apoderados (datos, evaluaciones, video de partidos)
+- Definir roles de acceso en las plataformas (quien ve que)
+- Politica de retencion: cuanto tiempo se guardan datos de exalumnos
+- Procedimiento ante solicitud de acceso o eliminacion de un apoderado
+- Acuerdo escrito colegio-proveedor de las plataformas (aunque el proveedor sea uno mismo)
+
+## Nota
+Validar el detalle con el encargado legal o de convivencia del colegio.`},
+"protocolos-seguridad":{title:"Protocolos de seguridad y accidentes",sectionId:"09",md:`## Accidente en clase o entrenamiento
+1. Atencion inmediata segun gravedad (primeros auxilios, no mover si hay riesgo)
+2. Aviso a enfermeria y apoderado segun protocolo del colegio
+3. Seguro escolar: activacion y documentacion
+4. Registro escrito del incidente el mismo dia
+5. Revision: hubo algo prevenible que cambiar
+
+## Prevencion
+- Revision de recintos y materiales al inicio de cada semestre
+- Calentamiento estandar obligatorio en todas las sesiones
+- Cargas y ejercicios adecuados por edad (sin maximos en menores)
+- Hidratacion y protocolo de calor para actividades al aire libre
+
+## Documentos a mantener al dia
+- Fichas de salud y contactos de emergencia de seleccionados
+- Autorizaciones de viaje
+- Nomina de docentes con primeros auxilios vigente (gestionar capacitacion si falta)`}
+};
+
+// =====================================================
+// STATE
+// =====================================================
+const SK = 'dd-docs-v2';
+let sections = [];
+let docsMeta = {}; // {id: {title, sectionId, md, edited, isNew}}
+let currentDoc = 'home';
+let editMode = false;
+let showPreview = true;
+
+function load() {
+  const saved = localStorage.getItem(SK);
+  if (saved) {
+    try {
+      const s = JSON.parse(saved);
+      sections = s.sections || [];
+      docsMeta = s.docs || {};
+    } catch(e) { initDefaults(); }
+  } else {
+    initDefaults();
+  }
+  // Ensure defaults exist
+  for (const ds of DEFAULT_SECTIONS) {
+    if (!sections.find(s => s.id === ds.id)) sections.push({...ds});
+  }
+  for (const [k,v] of Object.entries(DEFAULT_DOCS)) {
+    if (!docsMeta[k]) docsMeta[k] = { title: v.title, sectionId: v.sectionId, md: v.md, edited: false, isNew: false };
+  }
+}
+
+function initDefaults() {
+  sections = DEFAULT_SECTIONS.map(s => ({...s}));
+  docsMeta = {};
+}
+
+function save() {
+  localStorage.setItem(SK, JSON.stringify({ sections, docs: docsMeta }));
+}
+
+function getDocMd(id) { return docsMeta[id]?.md || ''; }
+function isEdited(id) { return docsMeta[id]?.edited || false; }
+function isNew(id) { return docsMeta[id]?.isNew || false; }
+function slugify(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+
+// =====================================================
+// MARKDOWN PARSER
+// =====================================================
+function parseMd(md) {
+  let html = '', inUl = false, inOl = false;
+  const lines = md.split('\n');
+  function cl() { let s=''; if(inUl){s+='</ul>';inUl=false} if(inOl){s+='</ol>';inOl=false} return s; }
+  function il(t) {
+    t = t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    t = t.replace(/`(.+?)`/g,'<code>$1</code>');
+    t = t.replace(/\[POR LEVANTAR\]/g,'<span class="por-levantar">[POR LEVANTAR]</span>');
+    t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,'<a href="$2" target="_blank" style="color:var(--azul-claro);text-decoration:underline">$1</a>');
+    return t;
+  }
+  for (const line of lines) {
+    const tr = line.trim();
+    if (!tr) { html += cl(); continue; }
+    let m;
+    if ((m = tr.match(/^### (.+)/))) { html += cl()+`<h3>${il(m[1])}</h3>`; continue; }
+    if ((m = tr.match(/^## (.+)/))) { html += cl()+`<h2>${il(m[1])}</h2>`; continue; }
+    if ((m = tr.match(/^# (.+)/))) { html += cl()+`<h1>${il(m[1])}</h1>`; continue; }
+    if (tr.startsWith('> ')) { html += cl()+`<blockquote>${il(tr.slice(2))}</blockquote>`; continue; }
+    if ((m = tr.match(/^(\d+)\.\s+(.+)/))) { if(!inOl){html+=cl()+'<ol>';inOl=true} html+=`<li>${il(m[2])}</li>`; continue; }
+    if (tr.startsWith('- ')) { if(!inUl){html+=cl()+'<ul>';inUl=true} html+=`<li>${il(tr.slice(2))}</li>`; continue; }
+    html += cl()+`<p>${il(tr)}</p>`;
+  }
+  html += cl();
+  return html;
+}
+
+// =====================================================
+// NAV
+// =====================================================
+function buildNav() {
+  const nav = document.getElementById('nav-list');
+  let h = '<div class="nav-item home-link" data-doc="home">Panel general</div>';
+  const sorted = [...sections].sort((a,b) => a.id.localeCompare(b.id));
+  for (const sec of sorted) {
+    const sd = Object.entries(docsMeta).filter(([k,v]) => v.sectionId === sec.id).sort((a,b) => a[0].localeCompare(b[0]));
+    h += `<div class="nav-section" data-section="${sec.id}">
+      <div class="nav-section-head">
+        <span class="nav-section-title">${sec.id} ${sec.name}</span>
+        <button class="nav-sec-btn" onclick="openNewDoc('${sec.id}')" title="Nuevo documento">+</button>
+        <button class="nav-sec-btn" onclick="renameSection('${sec.id}')" title="Renombrar seccion">&#9998;</button>
+        ${!DEFAULT_SECTIONS.find(ds=>ds.id===sec.id) ? `<button class="nav-sec-btn" onclick="deleteSection('${sec.id}')" title="Eliminar seccion">&times;</button>` : ''}
+      </div>`;
+    for (const [key, val] of sd) {
+      const dot = isNew(key) ? 'nuevo' : (isEdited(key) ? 'edited' : 'empty');
+      h += `<div class="nav-item" data-doc="${key}">
+        <span class="nav-dot ${dot}"></span>
+        <span class="nav-label">${val.title}</span>
+        <button class="nav-item-del" onclick="event.stopPropagation();deleteDoc('${key}')" title="Eliminar">&times;</button>
+      </div>`;
+    }
+    h += '</div>';
+  }
+  nav.innerHTML = h;
+  nav.querySelectorAll('.nav-item').forEach(el => {
+    el.addEventListener('click', () => { if(editMode) exitEdit(); showDoc(el.dataset.doc); });
+  });
+  setActiveNav(currentDoc);
+}
+
+function setActiveNav(id) {
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  const a = document.querySelector(`.nav-item[data-doc="${id}"]`);
+  if (a) a.classList.add('active');
+}
+
+// =====================================================
+// MODALS
+// =====================================================
+function modal(title, fields, onOk) {
+  const root = document.getElementById('modal-root');
+  let fHtml = '';
+  for (const f of fields) {
+    fHtml += `<label>${f.label}</label>`;
+    if (f.type === 'select') {
+      fHtml += `<select id="modal-${f.name}">${f.options.map(o=>`<option value="${o.value}">${o.label}</option>`).join('')}</select>`;
+    } else {
+      fHtml += `<input type="text" id="modal-${f.name}" value="${f.value||''}" placeholder="${f.placeholder||''}">`;
+    }
+  }
+  root.innerHTML = `<div class="modal-bg" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <h3>${title}</h3>
+      ${fHtml}
+      <div class="modal-actions">
+        <button onclick="closeModal()">Cancelar</button>
+        <button class="modal-ok" onclick="modalOk()">Aceptar</button>
+      </div>
+    </div>
+  </div>`;
+  window._modalOnOk = onOk;
+  window._modalFields = fields;
+  const first = root.querySelector('input,select');
+  if (first) first.focus();
+}
+
+function closeModal() { document.getElementById('modal-root').innerHTML = ''; }
+
+function modalOk() {
+  const vals = {};
+  for (const f of window._modalFields) {
+    vals[f.name] = document.getElementById(`modal-${f.name}`).value.trim();
+  }
+  if (window._modalOnOk) window._modalOnOk(vals);
+  closeModal();
+}
+
+// =====================================================
+// SECTION CRUD
+// =====================================================
+function openNewSection() {
+  const nextId = String(sections.length).padStart(2,'0');
+  modal('Nueva seccion', [
+    { name:'id', label:'Numero (ej. 10)', value: nextId, type:'text' },
+    { name:'name', label:'Nombre', placeholder:'Nombre de la seccion', type:'text' }
+  ], (v) => {
+    if (!v.id || !v.name) return toast('Completa ambos campos');
+    const id = v.id.padStart(2,'0');
+    if (sections.find(s=>s.id===id)) return toast('Ya existe esa seccion');
+    sections.push({ id, name: v.name });
+    save(); buildNav(); toast('Seccion creada');
+  });
+}
+
+function renameSection(secId) {
+  const sec = sections.find(s=>s.id===secId);
+  if (!sec) return;
+  modal('Renombrar seccion', [
+    { name:'name', label:'Nuevo nombre', value: sec.name, type:'text' }
+  ], (v) => {
+    if (!v.name) return;
+    sec.name = v.name;
+    save(); buildNav(); toast('Seccion renombrada');
+  });
+}
+
+function deleteSection(secId) {
+  const sd = Object.entries(docsMeta).filter(([k,v])=>v.sectionId===secId);
+  if (sd.length > 0) return toast('Elimina los documentos de la seccion primero');
+  if (!confirm('Eliminar esta seccion?')) return;
+  sections = sections.filter(s=>s.id!==secId);
+  save(); buildNav(); showDoc('home'); toast('Seccion eliminada');
+}
+
+// =====================================================
+// DOC CRUD
+// =====================================================
+function openNewDoc(secId) {
+  modal('Nuevo documento', [
+    { name:'title', label:'Titulo del documento', placeholder:'Ej. Plan de natacion', type:'text' },
+    { name:'section', label:'Seccion', type:'select',
+      options: sections.sort((a,b)=>a.id.localeCompare(b.id)).map(s=>({value:s.id,label:`${s.id} ${s.name}`}))
+    }
+  ], (v) => {
+    if (!v.title) return toast('Escribe un titulo');
+    let id = slugify(v.title);
+    if (docsMeta[id]) id = id + '-' + Date.now().toString(36);
+    docsMeta[id] = { title: v.title, sectionId: v.section || secId, md: `## ${v.title}\n\nContenido del documento aqui.\n`, edited: true, isNew: true };
+    save(); buildNav(); showDoc(id); toast('Documento creado');
+  });
+  // Preselect section
+  setTimeout(()=>{
+    const sel = document.getElementById('modal-section');
+    if (sel) sel.value = secId;
+  }, 50);
+}
+
+function deleteDoc(id) {
+  const doc = docsMeta[id];
+  if (!doc) return;
+  if (!confirm(`Eliminar "${doc.title}"?`)) return;
+  delete docsMeta[id];
+  save(); buildNav();
+  if (currentDoc === id) showDoc('home');
+  toast('Documento eliminado');
+}
+
+function renameDoc(id) {
+  const doc = docsMeta[id];
+  if (!doc) return;
+  modal('Renombrar documento', [
+    { name:'title', label:'Nuevo titulo', value: doc.title, type:'text' },
+    { name:'section', label:'Seccion', type:'select',
+      options: sections.sort((a,b)=>a.id.localeCompare(b.id)).map(s=>({value:s.id,label:`${s.id} ${s.name}`}))
+    }
+  ], (v) => {
+    if (!v.title) return;
+    doc.title = v.title;
+    if (v.section) doc.sectionId = v.section;
+    doc.edited = true;
+    save(); buildNav(); showDoc(id); toast('Documento actualizado');
+  });
+  setTimeout(()=>{
+    const sel = document.getElementById('modal-section');
+    if (sel) sel.value = doc.sectionId;
+  }, 50);
+}
+
+// =====================================================
+// VIEW / EDIT
+// =====================================================
+function showDoc(docId) {
+  currentDoc = docId;
+  editMode = false;
+  setActiveNav(docId);
+  const tb = document.getElementById('toolbar');
+  const wrap = document.getElementById('content-wrap');
+
+  if (docId === 'home') {
+    tb.innerHTML = '<div class="breadcrumb"><b>Panel general</b></div>';
+    wrap.innerHTML = renderHome();
+    return;
+  }
+
+  const doc = docsMeta[docId];
+  if (!doc) { showDoc('home'); return; }
+  const sec = sections.find(s=>s.id===doc.sectionId);
+  const secName = sec ? `${sec.id} ${sec.name}` : '';
+  const st = isNew(docId) ? 'nuevo' : (isEdited(docId) ? 'editado' : 'original');
+  const stLabel = isNew(docId) ? 'Nuevo' : (isEdited(docId) ? 'Editado' : 'Original');
+  const isOrig = DEFAULT_DOCS[docId] && !isNew(docId);
+
+  tb.innerHTML = `
+    <div class="breadcrumb"><b>${secName}</b> <span style="margin:0 .3rem;opacity:.4">/</span> ${doc.title}</div>
+    <span class="status-pill ${st}">${stLabel}</span>
+    <button class="tb primary" onclick="enterEdit()">Editar</button>
+    <button class="tb" onclick="renameDoc('${docId}')">Renombrar</button>
+    ${isOrig && isEdited(docId) ? `<button class="tb danger" onclick="revertDoc()">Restaurar</button>` : ''}
+  `;
+  wrap.innerHTML = `<div class="content-area"><div class="doc-view"><h1>${doc.title}</h1>${parseMd(doc.md)}</div></div>`;
+}
+
+function enterEdit() {
+  editMode = true;
+  const doc = docsMeta[currentDoc];
+  if (!doc) return;
+  const sec = sections.find(s=>s.id===doc.sectionId);
+  const secName = sec ? `${sec.id} ${sec.name}` : '';
+
+  document.getElementById('toolbar').innerHTML = `
+    <div class="breadcrumb"><b>${secName}</b> <span style="margin:0 .3rem;opacity:.4">/</span> ${doc.title} <span style="margin:0 .3rem;opacity:.4">/</span> Editando</div>
+    <button class="tb" onclick="togglePreview()">${showPreview?'Solo editor':'Con preview'}</button>
+    <button class="tb primary" onclick="saveDoc()">Guardar</button>
+    <button class="tb" onclick="exitEdit()">Cancelar</button>
+  `;
+  document.getElementById('content-wrap').innerHTML = `
+    <div class="editor-wrap ${showPreview?'':'editor-only'}">
+      <div class="editor-pane">
+        <div class="editor-pane-label">Markdown</div>
+        <textarea class="editor-textarea" id="editor">${escHtml(doc.md)}</textarea>
+      </div>
+      <div class="preview-pane">
+        <div class="editor-pane-label">Vista previa</div>
+        <div class="preview-content doc-view" id="preview"></div>
+      </div>
+    </div>`;
+
+  const ed = document.getElementById('editor');
+  const pv = document.getElementById('preview');
+  pv.innerHTML = parseMd(doc.md);
+  ed.addEventListener('input', () => { pv.innerHTML = parseMd(ed.value); });
+  ed.addEventListener('keydown', (e) => {
+    if (e.key==='Tab') { e.preventDefault(); const s=ed.selectionStart,en=ed.selectionEnd; ed.value=ed.value.substring(0,s)+'  '+ed.value.substring(en); ed.selectionStart=ed.selectionEnd=s+2; }
+    if ((e.metaKey||e.ctrlKey) && e.key==='s') { e.preventDefault(); saveDoc(); }
+  });
+  ed.focus();
+}
+
+function saveDoc() {
+  const ed = document.getElementById('editor');
+  if (!ed) return;
+  const doc = docsMeta[currentDoc];
+  const orig = DEFAULT_DOCS[currentDoc];
+  doc.md = ed.value;
+  doc.edited = orig ? (ed.value !== orig.md) : true;
+  save(); buildNav(); toast('Guardado'); showDoc(currentDoc);
+}
+
+function exitEdit() { editMode = false; showDoc(currentDoc); }
+
+function revertDoc() {
+  if (!confirm('Restaurar al contenido original?')) return;
+  const orig = DEFAULT_DOCS[currentDoc];
+  if (!orig) return;
+  docsMeta[currentDoc] = { title: orig.title, sectionId: orig.sectionId, md: orig.md, edited: false, isNew: false };
+  save(); buildNav(); toast('Restaurado'); showDoc(currentDoc);
+}
+
+function togglePreview() { showPreview = !showPreview; enterEdit(); }
+
+// =====================================================
+// HOME
+// =====================================================
+function renderHome() {
+  const total = Object.keys(docsMeta).length;
+  const edited = Object.keys(docsMeta).filter(k=>isEdited(k)||isNew(k)).length;
+  const pct = total ? Math.round(edited/total*100) : 0;
+  const sorted = [...sections].sort((a,b)=>a.id.localeCompare(b.id));
+  const badgeColors = ['0','1','2','3','4','5','6','7','8','9'];
+
+  let cards = '';
+  for (const sec of sorted) {
+    const sd = Object.entries(docsMeta).filter(([k,v])=>v.sectionId===sec.id);
+    const se = sd.filter(([k])=>isEdited(k)||isNew(k)).length;
+    const sp = sd.length ? Math.round(se/sd.length*100) : 0;
+    const bi = parseInt(sec.id) % 10;
+    cards += `<div class="dash-card" onclick="showFirstOf('${sec.id}')">
+      <span class="badge badge-${bi}">${sec.id}</span>
+      <h3>${sec.name}</h3>
+      <p>${sd.length} doc${sd.length!==1?'s':''}</p>
+      <div class="progress-row"><div class="progress-bar"><div class="progress-fill" style="width:${sp}%"></div></div><span class="progress-text">${se}/${sd.length}</span></div>
+    </div>`;
+  }
+
+  return `<div class="content-area">
+    <h1 style="font-size:1.4rem;color:var(--azul);margin-bottom:.2rem">Proyecto Departamento de Deportes</h1>
+    <p style="font-size:.8rem;color:#718096;margin-bottom:1rem">Colegio particular, sector oriente</p>
+    <div style="background:#fff;border:1px solid var(--gris-borde);border-radius:8px;padding:1rem;margin-bottom:1.5rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+        <span style="font-size:.8rem;font-weight:600;color:var(--azul)">Progreso general</span>
+        <span style="font-size:.75rem;color:#718096">${edited} de ${total} documentos trabajados</span>
+      </div>
+      <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="modelo-visual">
+      <div class="modelo-nivel nivel-formacion"><h4>FORMACION</h4><p>100% alumnos</p></div>
+      <div class="modelo-nivel nivel-desarrollo"><h4>DESARROLLO</h4><p>Elige un deporte</p></div>
+      <div class="modelo-nivel nivel-elite"><h4>ELITE</h4><p>Apoyo real</p></div>
+    </div>
+    <div class="modelo-comunidad"><h4>COMUNIDAD (capa transversal)</h4><p>Apoderados y staff haciendo deporte en el colegio</p></div>
+    <h2 style="font-size:1.1rem;color:var(--azul);border-bottom:2px solid var(--gris-borde);padding-bottom:.25rem;margin-bottom:.8rem">Documentos por area</h2>
+    <div class="dashboard-grid">${cards}</div>
+  </div>`;
+}
+
+function showFirstOf(secId) {
+  const sd = Object.entries(docsMeta).filter(([k,v])=>v.sectionId===secId).sort((a,b)=>a[0].localeCompare(b[0]));
+  if (sd.length) showDoc(sd[0][0]);
+}
+
+// =====================================================
+// EXPORT / RESET
+// =====================================================
+function exportAll() {
+  let out = '';
+  const sorted = [...sections].sort((a,b)=>a.id.localeCompare(b.id));
+  for (const sec of sorted) {
+    const sd = Object.entries(docsMeta).filter(([k,v])=>v.sectionId===sec.id).sort((a,b)=>a[0].localeCompare(b[0]));
+    for (const [key, doc] of sd) {
+      out += `${'='.repeat(60)}\n${sec.id}-${sec.name.toLowerCase().replace(/\s+/g,'-')}/${key}.md\n${'='.repeat(60)}\n# ${doc.title}\n\n${doc.md}\n\n\n`;
+    }
+  }
+  const blob = new Blob([out], {type:'text/markdown'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'depto-deportes-export.md';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Exportado');
+}
+
+function resetAll() {
+  if (!confirm('Restaurar TODO a la version original? Se pierden todos los cambios, secciones y documentos nuevos.')) return;
+  localStorage.removeItem(SK);
+  load(); buildNav(); showDoc('home'); toast('Todo restaurado');
+}
+
+// =====================================================
+// SEARCH
+// =====================================================
+document.getElementById('buscar').addEventListener('input', (e) => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.nav-item:not(.home-link)').forEach(el => {
+    const l = el.querySelector('.nav-label');
+    const t = l ? l.textContent.toLowerCase() : '';
+    el.classList.toggle('hidden', q.length>0 && !t.includes(q));
+  });
+  document.querySelectorAll('.nav-section').forEach(sec => {
+    const vis = sec.querySelectorAll('.nav-item:not(.hidden)');
+    const title = sec.querySelector('.nav-section-head');
+    if(title) title.classList.toggle('hidden', vis.length===0 && q.length>0);
+  });
+});
+
+// =====================================================
+// UTILS
+// =====================================================
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+
+// =====================================================
+// INIT
+// =====================================================
+load();
+buildNav();
+showDoc('home');
+</script>
+</body>
+</html>
