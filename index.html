@@ -142,6 +142,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 
 .hidden{display:none!important}
 @media print{.sidebar,.toolbar{display:none}.main{margin-left:0}}
+
+/* MOBILE */
+.menu-toggle{display:none;position:fixed;top:.6rem;left:.6rem;z-index:20;background:var(--azul);color:#fff;border:none;border-radius:6px;width:38px;height:38px;font-size:1.2rem;cursor:pointer;line-height:1}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9}
+
+@media(max-width:768px){
+  .menu-toggle{display:block}
+  .sidebar{transform:translateX(-100%);transition:transform .25s ease;z-index:20}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-overlay.open{display:block;z-index:15}
+  .main{margin-left:0}
+  .toolbar{padding:.6rem 1rem .6rem 3.2rem;gap:.4rem}
+  .breadcrumb{font-size:.7rem;min-width:0}
+  .tb{padding:.3rem .5rem;font-size:.65rem}
+  .status-pill{font-size:.58rem;padding:.15rem .4rem}
+  .content-area{padding:1rem 1rem 3rem}
+  .doc-view h1{font-size:1.2rem}
+  .doc-view h2{font-size:1rem;margin-top:1.2rem}
+  .doc-view h3{font-size:.88rem}
+  .doc-view p,.doc-view li{font-size:.85rem}
+  .doc-view ul,.doc-view ol{margin-left:1rem}
+  .dashboard-grid{grid-template-columns:1fr}
+  .modelo-visual{grid-template-columns:1fr;gap:.5rem}
+  .modelo-nivel{padding:.8rem}
+  .editor-wrap{flex-direction:column;height:calc(100vh - 48px)}
+  .editor-wrap .preview-pane{display:none}
+  .editor-textarea{font-size:.78rem;padding:.8rem 1rem}
+  .modal{width:92vw;padding:1.2rem}
+  .toast{bottom:1rem;right:1rem;left:1rem;text-align:center}
+  .sidebar-footer{gap:.3rem}
+  .sidebar-btn{font-size:.6rem;padding:.3rem}
+}
 </style>
 </head>
 <body>
@@ -173,7 +205,10 @@ if(sessionStorage.getItem('dd-auth')==='1') document.getElementById('login-scree
 else document.getElementById('login-pass').focus();
 </script>
 
-<nav class="sidebar">
+<button class="menu-toggle" id="menu-toggle" onclick="toggleMenu()">&#9776;</button>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMenu()"></div>
+
+<nav class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <h1>Depto Deportes</h1>
     <p>Colegio particular, sector oriente</p>
@@ -956,7 +991,7 @@ function buildNav() {
   }
   nav.innerHTML = h;
   nav.querySelectorAll('.nav-item').forEach(el => {
-    el.addEventListener('click', () => { if(editMode) exitEdit(); showDoc(el.dataset.doc); });
+    el.addEventListener('click', () => { if(editMode) exitEdit(); showDoc(el.dataset.doc); closeMenu(); });
   });
   setActiveNav(currentDoc);
 }
@@ -1290,6 +1325,15 @@ document.getElementById('buscar').addEventListener('input', (e) => {
 // =====================================================
 function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
+
+function toggleMenu(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+}
 
 // =====================================================
 // INIT
