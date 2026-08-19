@@ -5,7 +5,7 @@ Cada carpeta tiene documentos base para editar y completar con la realidad del c
 
 ## Orden de trabajo sugerido
 
-1. 01-diagnostico y 08-gestion-kpis: con esto se enfrenta la reunión y los primeros 90 días
+1. 01-diagnóstico y 08-gestión-kpis: con esto se enfrenta la reunión y los primeros 90 días
 2. 02-perfil-deportista: adaptar el material que ya existe
 3. El resto se llena con la información real del colegio durante la fase de diagnóstico
 

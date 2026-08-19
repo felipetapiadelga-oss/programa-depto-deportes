@@ -1,132 +1,132 @@
 # Perfil del deportista - estructura
 
-El perfil atletico es el corazon del nivel Formacion. Es lo que convierte la clase de educacion fisica de "una hora de deporte" en un sistema con datos, progresion y seguimiento real. Cada alumno, desde prekinder hasta IV medio, tiene un registro de donde esta y hacia donde va.
+El perfil atlético es el corazón del nivel Formación. Es lo que convierte la clase de educación física de "una hora de deporte" en un sistema con datos, progresión y seguimiento real. Cada alumno, desde prekínder hasta IV medio, tiene un registro de dónde está y hacia dónde va.
 
 ## Principios del perfil
 
 - **Se co-construye con el equipo.** No se llega con el documento cerrado. Se presenta una base y se ajusta con los docentes que van a aplicarlo.
-- **Es medible o no sirve.** Cada dimension debe tener al menos un indicador cuantificable. Las dimensiones que no se pueden medir se redefinen hasta que se puedan.
-- **Es longitudinal.** El valor no esta en una foto puntual sino en la pelicula completa. Un alumno que entra bajo y mejora consistentemente es un exito del programa.
-- **No compara entre alumnos.** El reporte siempre muestra el progreso del alumno contra si mismo. Las comparaciones normativas (percentiles por edad) son herramientas internas, no comunicacion a familias.
-- **Se adapta por ciclo.** Lo que se mide y como se mide cambia segun la edad. No se aplica la misma bateria a un nino de 5 años que a uno de 16.
+- **Es medible o no sirve.** Cada dimensión debe tener al menos un indicador cuantificable. Las dimensiones que no se pueden medir se redefinen hasta que se puedan.
+- **Es longitudinal.** El valor no está en una foto puntual sino en la película completa. Un alumno que entra bajo y mejora consistentemente es un éxito del programa.
+- **No compara entre alumnos.** El reporte siempre muestra el progreso del alumno contra sí mismo. Las comparaciones normativas (percentiles por edad) son herramientas internas, no comunicación a familias.
+- **Se adapta por ciclo.** Lo que se mide y cómo se mide cambia según la edad. No se aplica la misma batería a un niño de 5 años que a uno de 16.
 
 ## Dimensiones del perfil
 
-### 1. Capacidades motrices basicas
-Coordinacion, equilibrio, lateralidad, ritmo, orientacion espacial y temporal.
+### 1. Capacidades motrices básicas
+Coordinación, equilibrio, lateralidad, ritmo, orientación espacial y temporal.
 
-- Ciclos menores (PK a 2do basico): es la dimension principal. Todo el trabajo se organiza alrededor del desarrollo motor.
+- Ciclos menores (PK a 2do básico): es la dimensión principal. Todo el trabajo se organiza alrededor del desarrollo motor.
 - Ciclos intermedios (3ro a 6to): sigue siendo importante pero se integra dentro de las habilidades deportivas.
-- Ciclos mayores (7mo en adelante): se evalua como base pero el foco esta en las otras dimensiones.
+- Ciclos mayores (7mo en adelante): se evalúa como base pero el foco está en las otras dimensiones.
 
-**Indicadores:** circuito coordinativo estandarizado, test de equilibrio estatico y dinamico, lateralidad funcional.
+**Indicadores:** circuito coordinativo estandarizado, test de equilibrio estático y dinámico, lateralidad funcional.
 
-### 2. Capacidades fisicas condicionales
-Fuerza, velocidad, resistencia aerobica, flexibilidad.
+### 2. Capacidades físicas condicionales
+Fuerza, velocidad, resistencia aeróbica, flexibilidad.
 
 - Son medibles con tests simples y tienen valores de referencia por edad y sexo.
-- Se evaluan dos veces al año (entrada y salida) con la misma bateria.
-- Los resultados alimentan las decisiones de planificacion: si un curso esta bajo en resistencia, se ajusta el plan.
+- Se evalúan dos veces al año (entrada y salida) con la misma batería.
+- Los resultados alimentan las decisiones de planificación: si un curso está bajo en resistencia, se ajusta el plan.
 
-**Indicadores:** salto horizontal, velocidad 20m, Course Navette o test progresivo, sit and reach, lanzamiento de balon medicinal (categorias mayores).
+**Indicadores:** salto horizontal, velocidad 20m, Course Navette o test progresivo, sit and reach, lanzamiento de balón medicinal (categorías mayores).
 
 ### 3. Habilidades deportivas transversales
 Lanzar, atrapar, golpear, patear, saltar, girar, nadar (si la infraestructura lo permite).
 
-- Son las habilidades que permiten participar en cualquier deporte, no en uno especifico.
-- En ciclos menores se evaluan con observacion estructurada (rubrica).
-- En ciclos mayores se integran dentro de la evaluacion de los deportes especificos.
+- Son las habilidades que permiten participar en cualquier deporte, no en uno específico.
+- En ciclos menores se evalúan con observación estructurada (rúbrica).
+- En ciclos mayores se integran dentro de la evaluación de los deportes específicos.
 
-**Indicadores:** rubrica de competencia motriz por habilidad, test de precision de lanzamiento, evaluacion de nado basico.
+**Indicadores:** rúbrica de competencia motriz por habilidad, test de precisión de lanzamiento, evaluación de nado básico.
 
-### 4. Dimension cognitiva y tactica
-Lectura de juego, toma de decisiones, comprension de reglas y estrategias.
+### 4. Dimensión cognitiva y táctica
+Lectura de juego, toma de decisiones, comprensión de reglas y estrategias.
 
-- Se evalua dentro de situaciones de juego, no con pruebas escritas.
-- En ciclos menores: comprension de reglas simples y juego colaborativo.
-- En ciclos mayores: capacidad de analizar situaciones de juego y tomar decisiones bajo presion.
+- Se evalúa dentro de situaciones de juego, no con pruebas escritas.
+- En ciclos menores: comprensión de reglas simples y juego colaborativo.
+- En ciclos mayores: capacidad de analizar situaciones de juego y tomar decisiones bajo presión.
 
-**Indicadores:** rubrica de observacion en juego (GPAI adaptado), autoevaluacion guiada en categorias mayores.
+**Indicadores:** rúbrica de observación en juego (GPAI adaptado), autoevaluación guiada en categorías mayores.
 
-### 5. Dimension actitudinal y social
-Esfuerzo, perseverancia, trabajo en equipo, juego limpio, respeto, autonomia.
+### 5. Dimensión actitudinal y social
+Esfuerzo, perseverancia, trabajo en equipo, juego limpio, respeto, autonomía.
 
-- Se evalua por observacion sistematica del docente, no por impresion.
-- Los indicadores son conductuales: "se esfuerza aunque no le salga", "acepta decisiones del arbitro", "ayuda a companeros con dificultad".
-- Es la dimension mas delicada de comunicar. El reporte debe ser descriptivo y positivo.
+- Se evalúa por observación sistemática del docente, no por impresión.
+- Los indicadores son conductuales: "se esfuerza aunque no le salga", "acepta decisiones del árbitro", "ayuda a compañeros con dificultad".
+- Es la dimensión más delicada de comunicar. El reporte debe ser descriptivo y positivo.
 
-**Indicadores:** rubrica actitudinal con descriptores de conducta por nivel.
+**Indicadores:** rúbrica actitudinal con descriptores de conducta por nivel.
 
-## Organizacion por ciclo
+## Organización por ciclo
 
-### Ciclo 1: Prekinder a 2do basico (5 a 7 años)
+### Ciclo 1: Prekínder a 2do básico (5 a 7 años)
 **Foco principal:** desarrollo motor y juego
 
-| Dimension | Peso relativo | Tipo de evaluacion |
+| Dimensión | Peso relativo | Tipo de evaluación |
 |-----------|--------------|-------------------|
-| Motrices basicas | 40% | Circuito + observacion |
-| Fisicas condicionales | 15% | Tests adaptados (sin maximos) |
-| Habilidades transversales | 25% | Rubrica de observacion |
-| Cognitiva/tactica | 5% | Observacion en juego |
-| Actitudinal | 15% | Rubrica de conducta |
+| Motrices básicas | 40% | Circuito + observación |
+| Físicas condicionales | 15% | Tests adaptados (sin máximos) |
+| Habilidades transversales | 25% | Rúbrica de observación |
+| Cognitiva/táctica | 5% | Observación en juego |
+| Actitudinal | 15% | Rúbrica de conducta |
 
-Nota: en este ciclo NO se hacen rankings ni se presiona por rendimiento. Todo es juego con proposito.
+Nota: en este ciclo NO se hacen rankings ni se presiona por rendimiento. Todo es juego con propósito.
 
-### Ciclo 2: 3ro a 6to basico (8 a 11 años)
+### Ciclo 2: 3ro a 6to básico (8 a 11 años)
 **Foco principal:** multideporte y habilidades transversales
 
-| Dimension | Peso relativo | Tipo de evaluacion |
+| Dimensión | Peso relativo | Tipo de evaluación |
 |-----------|--------------|-------------------|
-| Motrices basicas | 20% | Circuito coordinativo |
-| Fisicas condicionales | 25% | Bateria ALPHA adaptada |
-| Habilidades transversales | 25% | Tests + rubrica |
-| Cognitiva/tactica | 15% | Observacion en juego |
-| Actitudinal | 15% | Rubrica de conducta |
+| Motrices básicas | 20% | Circuito coordinativo |
+| Físicas condicionales | 25% | Batería ALPHA adaptada |
+| Habilidades transversales | 25% | Tests + rúbrica |
+| Cognitiva/táctica | 15% | Observación en juego |
+| Actitudinal | 15% | Rúbrica de conducta |
 
-Nota: este es el ciclo clave para detectar intereses deportivos. Se expone a multiples deportes sin forzar especializacion.
+Nota: este es el ciclo clave para detectar intereses deportivos. Se expone a múltiples deportes sin forzar especialización.
 
-### Ciclo 3: 7mo basico a I medio (12 a 14 años)
-**Foco principal:** orientacion deportiva y desarrollo
+### Ciclo 3: 7mo básico a I medio (12 a 14 años)
+**Foco principal:** orientación deportiva y desarrollo
 
-| Dimension | Peso relativo | Tipo de evaluacion |
+| Dimensión | Peso relativo | Tipo de evaluación |
 |-----------|--------------|-------------------|
-| Motrices basicas | 10% | Integrada en deportes |
-| Fisicas condicionales | 30% | Bateria ALPHA completa |
-| Habilidades deportivas | 25% | Evaluacion por deporte |
-| Cognitiva/tactica | 20% | GPAI + autoevaluacion |
-| Actitudinal | 15% | Rubrica + autoevaluacion |
+| Motrices básicas | 10% | Integrada en deportes |
+| Físicas condicionales | 30% | Batería ALPHA completa |
+| Habilidades deportivas | 25% | Evaluación por deporte |
+| Cognitiva/táctica | 20% | GPAI + autoevaluación |
+| Actitudinal | 15% | Rúbrica + autoevaluación |
 
-Nota: aqui comienza la especializacion natural. El alumno elige deportes y profundiza.
+Nota: aquí comienza la especialización natural. El alumno elige deportes y profundiza.
 
 ### Ciclo 4: II a IV medio (15 a 17 años)
-**Foco principal:** consolidacion, especializacion y proyeccion
+**Foco principal:** consolidación, especialización y proyección
 
-| Dimension | Peso relativo | Tipo de evaluacion |
+| Dimensión | Peso relativo | Tipo de evaluación |
 |-----------|--------------|-------------------|
-| Fisicas condicionales | 30% | Bateria completa |
-| Habilidades deportivas | 25% | Evaluacion especifica |
-| Cognitiva/tactica | 20% | Analisis de juego |
-| Actitudinal/liderazgo | 15% | Rubrica + autoevaluacion |
-| Autonomia y habitos | 10% | Evaluacion de programa propio |
+| Físicas condicionales | 30% | Batería completa |
+| Habilidades deportivas | 25% | Evaluación específica |
+| Cognitiva/táctica | 20% | Análisis de juego |
+| Actitudinal/liderazgo | 15% | Rúbrica + autoevaluación |
+| Autonomía y hábitos | 10% | Evaluación de programa propio |
 
-Nota: en este ciclo se introduce la capacidad de disenar su propio programa de actividad fisica. El objetivo es que egrese con herramientas para mantenerse activo de por vida.
+Nota: en este ciclo se introduce la capacidad de diseñar su propio programa de actividad física. El objetivo es que egrese con herramientas para mantenerse activo de por vida.
 
 ## Perfil de egreso
 
-Un alumno que egresa de IV medio del colegio deberia poder:
+Un alumno que egresa de IV medio del colegio debería poder:
 
-1. **Fisicamente:** mantener un nivel de condicion fisica saludable y saber como evaluarse
-2. **Deportivamente:** practicar al menos un deporte con competencia tecnica basica
-3. **Tacticamente:** leer situaciones de juego y tomar decisiones inteligentes
-4. **Actitudinalmente:** competir con juego limpio, trabajar en equipo y tolerar la frustracion
-5. **Autonomamente:** disenar y ejecutar una rutina de actividad fisica sin depender de un profesor
+1. **Físicamente:** mantener un nivel de condición física saludable y saber cómo evaluarse
+2. **Deportivamente:** practicar al menos un deporte con competencia técnica básica
+3. **Tácticamente:** leer situaciones de juego y tomar decisiones inteligentes
+4. **Actitudinalmente:** competir con juego limpio, trabajar en equipo y tolerar la frustración
+5. **Autónomamente:** diseñar y ejecutar una rutina de actividad física sin depender de un profesor
 
-Este perfil se presenta a las familias desde el primer año. Es la promesa del area.
+Este perfil se presenta a las familias desde el primer año. Es la promesa del área.
 
-## Proceso de implementacion
+## Proceso de implementación
 
 1. **Presentar esta estructura al equipo** como borrador, no como documento final
 2. **Ajustar con los docentes** que conocen la realidad de cada ciclo
-3. **Validar con rectoria** la version co-construida
+3. **Validar con rectoría** la versión co-construida
 4. **Pilotear en un ciclo** durante el primer semestre (idealmente Ciclo 2 por volumen y edad)
 5. **Ajustar y escalar** al resto de los ciclos en el segundo semestre o año 2
