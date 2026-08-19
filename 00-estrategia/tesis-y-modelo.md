@@ -22,7 +22,7 @@ Que es: el programa de Educacion Fisica del colegio, rediseñado para que cada a
 - Se mide con baterias de evaluacion validadas (entrada en marzo, salida en octubre)
 - Cada alumno tiene un registro longitudinal de su desarrollo
 - Los datos alimentan decisiones: si un curso esta bajo en coordinacion, se ajusta el plan
-- Los apoderados reciben reporte de avance dos veces al ano
+- Los apoderados reciben reporte de avance dos veces al año
 
 Respaldo: el concepto de Physical Literacy (Whitehead, 2010) y las baterias ALPHA (Ruiz et al., 2011) fundamentan que todos los ninos deben alcanzar competencias motrices minimas medibles en contexto escolar.
 
@@ -80,7 +80,7 @@ Lo que baja:
 
 **Ganar bien.** Elite sin malas practicas. No se adelantan categorias para ganar torneos. No se sobrecargan menores. No se presiona academicamente a seleccionados. Los resultados se buscan haciendo las cosas bien, no tomando atajos.
 
-**Multideporte primero, especializacion a su tiempo.** La evidencia es clara: especializar antes de los 12-13 anos aumenta lesiones, abandono y burnout. El colegio promueve la practica de multiples deportes en los ciclos menores y acompana la especializacion cuando corresponde por edad y desarrollo.
+**Multideporte primero, especializacion a su tiempo.** La evidencia es clara: especializar antes de los 12-13 años aumenta lesiones, abandono y burnout. El colegio promueve la practica de multiples deportes en los ciclos menores y acompana la especializacion cuando corresponde por edad y desarrollo.
 
 **Decisiones con datos, no con impresiones.** El perfil atletico se mide. La asistencia se registra. Las lesiones se documentan. El presupuesto se controla. Los informes a rectoria llevan numeros, no anecdotas. Para eso existen las plataformas propias (SCM, CoachDrill, AutoCut).
 

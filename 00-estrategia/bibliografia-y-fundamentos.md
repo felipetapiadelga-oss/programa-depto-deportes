@@ -22,7 +22,7 @@ Base para el principio "multideporte primero, especializacion a su tiempo".
 - DiFiori, J.P. et al. (2014). Overuse injuries and burnout in youth sports. British Journal of Sports Medicine, 48(4), 287-288. [Ver en PubMed](https://pubmed.ncbi.nlm.nih.gov/24366013/)
 - Cote, J., Baker, J. & Abernethy, B. (2007). Practice and play in the development of sport expertise. Handbook of Sport Psychology (3ra ed.). Wiley. [Ver en editorial](https://onlinelibrary.wiley.com/doi/10.1002/9781118270011.ch8)
 
-Que respaldan: la evidencia es clara. Especializar antes de los 12-13 anos aumenta lesiones, abandono y burnout sin mejorar las probabilidades de exito deportivo. El camino multideporte produce mejores resultados a largo plazo.
+Que respaldan: la evidencia es clara. Especializar antes de los 12-13 años aumenta lesiones, abandono y burnout sin mejorar las probabilidades de exito deportivo. El camino multideporte produce mejores resultados a largo plazo.
 
 ## Alfabetizacion fisica (Physical Literacy)
 

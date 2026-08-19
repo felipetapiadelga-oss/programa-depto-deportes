@@ -5,14 +5,14 @@ Este documento define los tests que se aplican para medir el perfil atletico. La
 ## Criterios para elegir tests
 
 - **Aplicables en una clase normal** con el material disponible en el colegio. Si requiere equipamiento especial, no sirve.
-- **Comparables ano a ano.** Misma bateria, mismas condiciones, mismo protocolo. Si se cambia el test, se pierde la comparabilidad.
+- **Comparables año a año.** Misma bateria, mismas condiciones, mismo protocolo. Si se cambia el test, se pierde la comparabilidad.
 - **Con valores de referencia por edad** cuando existan. Permite contextualizar los resultados.
 - **Seguros para la edad.** Nada de esfuerzos maximos en ciclos menores. Nada de tests que requieran tecnica que el alumno no domina.
 - **Rapidos de aplicar.** Una medicion completa no deberia tomar mas de 2 clases por curso.
 
 ## Bateria por ciclo
 
-### Ciclo 1: Prekinder a 2do basico (5 a 7 anos)
+### Ciclo 1: Prekinder a 2do basico (5 a 7 años)
 
 | Capacidad | Test | Protocolo resumido | Material |
 |-----------|------|-------------------|----------|
@@ -20,11 +20,11 @@ Este documento define los tests que se aplican para medir el perfil atletico. La
 | Equilibrio | Equilibrio unipodal | Tiempo maximo sobre un pie (ojos abiertos) | Cronometro |
 | Velocidad | Carrera 10 metros | Sprint lanzado desde posicion de pie | Cronometro, conos |
 | Flexibilidad | Sit and reach adaptado | Sentado, alcanzar mas alla de los pies | Cajon o banco |
-| Lateralidad | Dominancia funcional | Registro: mano, pie, ojo dominante en 3 tareas | Pelota, aro |
+| Lateralidad | Dominancia funcional | Registro: maño, pie, ojo dominante en 3 tareas | Pelota, aro |
 
 **Nota:** en este ciclo los tests son ludicos. Se presentan como juegos, no como pruebas. No se comparten puntajes individuales con los ninos.
 
-### Ciclo 2: 3ro a 6to basico (8 a 11 anos)
+### Ciclo 2: 3ro a 6to basico (8 a 11 años)
 
 | Capacidad | Test | Protocolo resumido | Material |
 |-----------|------|-------------------|----------|
@@ -37,7 +37,7 @@ Este documento define los tests que se aplican para medir el perfil atletico. La
 
 **Valores de referencia:** utilizar tablas de percentiles ALPHA-Fitness (Ruiz et al., 2011) ajustadas por edad y sexo.
 
-### Ciclo 3: 7mo basico a I medio (12 a 14 anos)
+### Ciclo 3: 7mo basico a I medio (12 a 14 años)
 
 | Capacidad | Test | Protocolo resumido | Material |
 |-----------|------|-------------------|----------|
@@ -50,7 +50,7 @@ Este documento define los tests que se aplican para medir el perfil atletico. La
 
 **Nota:** a partir de este ciclo se puede agregar composicion corporal (IMC) si se cuenta con balanza y tallimetro, siempre con manejo sensible de la informacion.
 
-### Ciclo 4: II a IV medio (15 a 17 anos)
+### Ciclo 4: II a IV medio (15 a 17 años)
 
 | Capacidad | Test | Protocolo resumido | Material |
 |-----------|------|-------------------|----------|
@@ -91,7 +91,7 @@ Este documento define los tests que se aplican para medir el perfil atletico. La
 
 | Periodo | Fecha sugerida | Proposito |
 |---------|---------------|-----------|
-| Medicion de entrada | Semanas 2-3 de marzo | Linea base del ano |
+| Medicion de entrada | Semanas 2-3 de marzo | Linea base del año |
 | Medicion de salida | Semanas 2-3 de octubre | Comparacion con entrada |
 | Medicion especial seleccionados | Agosto (opcional) | Seguimiento mas frecuente para nivel Elite |
 

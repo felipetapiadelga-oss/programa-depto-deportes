@@ -46,7 +46,7 @@ Los percentiles se toman de las tablas ALPHA-Fitness ajustadas por edad y sexo.
 ## Reporte al apoderado
 
 ### Frecuencia
-Dos veces al ano, alineado con las mediciones:
+Dos veces al año, alineado con las mediciones:
 - **Primer semestre (junio):** basado en medicion de entrada + observacion del primer semestre
 - **Segundo semestre (noviembre):** basado en medicion de salida + observacion anual completa
 
@@ -57,7 +57,7 @@ El reporte es de UNA pagina. Claro, visual, sin jerga tecnica.
 **Seccion 1: Perfil general (grafico radar)**
 - Grafico con las 5 dimensiones del perfil
 - Muestra el nivel actual del alumno en cada dimension
-- Si es segundo reporte o ano 2+, muestra la comparacion con la medicion anterior
+- Si es segundo reporte o año 2+, muestra la comparacion con la medicion anterior
 
 **Seccion 2: Detalle por dimension**
 - Nivel alcanzado (1-4) con descriptor breve
@@ -98,7 +98,7 @@ El reporte es de UNA pagina. Claro, visual, sin jerga tecnica.
 ### Para rectoria (datos agregados)
 - Porcentaje de alumnos en cada nivel por dimension (distribucion general)
 - Porcentaje de mejora entre mediciones (indicador de impacto del programa)
-- Comparacion ano a ano (a partir del segundo ano)
+- Comparacion año a año (a partir del segundo año)
 - Estos datos alimentan el informe semestral y anual (ver documento de KPIs)
 
 ## Implementacion
@@ -107,12 +107,12 @@ El reporte es de UNA pagina. Claro, visual, sin jerga tecnica.
 - Aplicar rubrica en un ciclo (idealmente Ciclo 2 por volumen)
 - Generar primer reporte al apoderado con formato simplificado
 - Recoger feedback de docentes y familias
-- Ajustar descriptores y formato para el ano 2
+- Ajustar descriptores y formato para el año 2
 
 ### Ano 2: escalar
 - Aplicar en todos los ciclos con rubrica ajustada
 - Reporte completo con grafico radar
-- Primer dato de comparacion longitudinal (entrada ano 1 vs entrada ano 2)
+- Primer dato de comparacion longitudinal (entrada año 1 vs entrada año 2)
 
 ### Ano 3: consolidar
 - Sistema funcionando en todos los ciclos

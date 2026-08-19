@@ -5,7 +5,7 @@ Lo que no se mide no se gestiona, pero lo que se mide mal se gestiona peor. Los 
 ## Principios de medicion
 
 - **Pocos indicadores, bien medidos.** Maximo 3-4 KPIs por nivel. Mejor medir 12 cosas bien que 40 a medias.
-- **Meta escalonada.** El ano 1 no tiene las mismas metas que el ano 3. Partir realista y subir.
+- **Meta escalonada.** El año 1 no tiene las mismas metas que el año 3. Partir realista y subir.
 - **Datos comparables.** Cada medicion usa la misma metodologia para poder comparar en el tiempo.
 - **Transparencia.** El equipo conoce los indicadores y sus metas. No se evalua en secreto.
 - **Sin vanity metrics.** "Numero de actividades realizadas" no es un KPI. El impacto de esas actividades si lo es.
@@ -14,14 +14,14 @@ Lo que no se mide no se gestiona, pero lo que se mide mal se gestiona peor. Los 
 
 ### FORMACION (100% de los alumnos)
 
-| KPI | Formula | Meta ano 1 | Meta ano 3 |
+| KPI | Formula | Meta año 1 | Meta año 3 |
 |-----|---------|-----------|-----------|
 | Cobertura de evaluacion | Alumnos evaluados / matricula total x 100 | 90% | 100% |
 | Mejora del perfil atletico | Alumnos que mejoran vs medicion anterior / total evaluados x 100 | 60% | 75% |
 | Reporte a familias | Familias que reciben reporte semestral / total familias x 100 | 80% | 100% |
 
 **Como se mide:**
-- Dos mediciones al ano: marzo (entrada) y octubre (salida)
+- Dos mediciones al año: marzo (entrada) y octubre (salida)
 - Bateria estandarizada (ver documento perfil-atletico en 02-perfil-deportista)
 - Datos cargados en plataforma, no en planillas sueltas
 
@@ -32,10 +32,10 @@ Lo que no se mide no se gestiona, pero lo que se mide mal se gestiona peor. Los 
 
 ### DESARROLLO (talleres y ramas deportivas)
 
-| KPI | Formula | Meta ano 1 | Meta ano 3 |
+| KPI | Formula | Meta año 1 | Meta año 3 |
 |-----|---------|-----------|-----------|
 | Participacion | Alumnos inscritos en al menos 1 taller o rama / matricula total x 100 | 30% | 50% |
-| Retencion anual | Alumnos que terminan el ano / inscritos al inicio x 100 | 70% | 85% |
+| Retencion anual | Alumnos que terminan el año / inscritos al inicio x 100 | 70% | 85% |
 | Planificacion visible | Ramas con plan anual cargado en plataforma / total ramas x 100 | 50% | 100% |
 | Satisfaccion | Nota promedio encuesta de satisfaccion (escala 1-7) | 5.5 | 6.0 |
 
@@ -51,7 +51,7 @@ Lo que no se mide no se gestiona, pero lo que se mide mal se gestiona peor. Los 
 
 ### ELITE (seleccionados y competencia)
 
-| KPI | Formula | Meta ano 1 | Meta ano 3 |
+| KPI | Formula | Meta año 1 | Meta año 3 |
 |-----|---------|-----------|-----------|
 | Seleccionados con plan individual | Deportistas con plan activo / total seleccionados x 100 | 60% | 100% |
 | Indice de lesiones | Lesiones que requieren baja / 100 deportistas por semestre | Linea base | Reduccion 20% vs linea base |
@@ -71,7 +71,7 @@ Lo que no se mide no se gestiona, pero lo que se mide mal se gestiona peor. Los 
 
 ### COMUNIDAD (deporte de adultos e identidad)
 
-| KPI | Formula | Meta ano 1 | Meta ano 3 |
+| KPI | Formula | Meta año 1 | Meta año 3 |
 |-----|---------|-----------|-----------|
 | Adultos activos | Apoderados y staff participando por mes | 30 | 80 |
 | Actividades comunitarias | Eventos deportivos abiertos a la comunidad por semestre | 2 | 4 |
@@ -83,7 +83,7 @@ Lo que no se mide no se gestiona, pero lo que se mide mal se gestiona peor. Los 
 
 ### GESTION (operacion del area)
 
-| KPI | Formula | Meta ano 1 | Meta ano 3 |
+| KPI | Formula | Meta año 1 | Meta año 3 |
 |-----|---------|-----------|-----------|
 | Ejecucion presupuestaria | Gasto real / presupuesto aprobado x 100 | 90-105% | 95-105% |
 | Clima del equipo | Nota promedio encuesta interna (escala 1-7) | 5.0 | 6.0 |
@@ -92,7 +92,7 @@ Lo que no se mide no se gestiona, pero lo que se mide mal se gestiona peor. Los 
 
 **Como se mide:**
 - Control presupuestario mensual (planilla o plataforma)
-- Encuesta anonima al equipo al cierre de cada semestre
+- Encuesta añonima al equipo al cierre de cada semestre
 - Cruce de calendario programado vs ejecutado
 
 ## Tablero resumen
@@ -136,18 +136,18 @@ Presentacion de 15-20 minutos con datos duros:
 **Formato:** datos primero, analisis segundo, opinion tercero. Cada slide con un titulo que sea la conclusion, no el tema.
 
 ### Informe anual (documento + presentacion)
-Cierre del ano con vision completa:
+Cierre del año con vision completa:
 
 1. **Cumplimiento de KPIs:** meta vs real por cada indicador, con explicacion
-2. **Evolucion respecto al ano anterior** (a partir del ano 2)
+2. **Evolucion respecto al año anterior** (a partir del año 2)
 3. **Casos de exito:** historias concretas que ilustran el impacto del programa
 4. **Lecciones aprendidas:** que funciono, que no, que se cambiaria
-5. **Propuesta para el ano siguiente:** metas, presupuesto, proyectos nuevos
+5. **Propuesta para el año siguiente:** metas, presupuesto, proyectos nuevos
 
 ## Errores comunes a evitar
 
 - **Medir para justificarse.** Los datos son para mejorar, no para demostrar que todo esta bien. Si un indicador sale mal, es informacion valiosa, no un fracaso.
-- **Cambiar la metodologia para mejorar el numero.** Si el ano 2 se mide distinto al ano 1, se pierde la comparabilidad. El metodo se fija y se respeta.
+- **Cambiar la metodologia para mejorar el numero.** Si el año 2 se mide distinto al año 1, se pierde la comparabilidad. El metodo se fija y se respeta.
 - **Sobrecargar al equipo con registros.** Si un docente pasa mas tiempo registrando que ensenando, algo esta mal. La plataforma debe facilitar, no entorpecer.
 - **Informar solo lo bueno.** La confianza de rectoria se gana con transparencia, no con PowerPoints perfectos.
 - **No actuar sobre los datos.** El peor error es medir, informar y no hacer nada distinto. Cada dato debe conectar con una decision o una accion.

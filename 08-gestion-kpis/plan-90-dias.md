@@ -47,7 +47,7 @@ Objetivo: transformar el diagnostico en acuerdos concretos con rectoria y con el
 
 ### Semana 5: diagnostico a rectoria
 - Presentacion del diagnostico: datos, no opiniones. Oportunidades, no criticas
-- Propuesta de KPIs para el ano (ver documento kpis-e-informes)
+- Propuesta de KPIs para el año (ver documento kpis-e-informes)
 - Propuesta de presupuesto del area
 - Acuerdo sobre los 3 quick wins del mes 3
 
@@ -76,11 +76,11 @@ Objetivo: que rectoria, el equipo y las familias vean algo concreto. La credibil
 ### Quick win 1: gimnasio abierto 7 a 8 AM
 - Horario protegido para seleccionados con preparador fisico o docente a cargo
 - No requiere inversion: solo reorganizar horarios y asignar responsable
-- Visible para familias que dejan a sus hijos temprano
+- Visible para familias que dejan a sus hijos tempraño
 - Mensaje: "el colegio se toma el deporte en serio"
 
 ### Quick win 2: calendario deportivo publicado
-- Mapa del ano completo: competencias por rama, eventos internos, fechas clave
+- Mapa del año completo: competencias por rama, eventos internos, fechas clave
 - Publicado a las familias con anticipacion (no improvisar competencia a competencia)
 - Cruzado con calendario academico para evitar conflictos
 - Mensaje: "hay un plan, no se improvisa"
@@ -118,6 +118,6 @@ Los 90 dias fueron exitosos si:
 
 **Rectoria quiere resultados inmediatos.** Manejar expectativas en la primera reunion. Los quick wins del mes 3 son la respuesta: resultados visibles sin quemar etapas.
 
-**La infraestructura es peor de lo esperado.** Trabajar con lo que hay. El proyecto no depende de infraestructura nueva. Las mejoras se priorizan en el plan de inversion a 3 anos.
+**La infraestructura es peor de lo esperado.** Trabajar con lo que hay. El proyecto no depende de infraestructura nueva. Las mejoras se priorizan en el plan de inversion a 3 años.
 
 **Hay conflictos historicos en el area.** Escuchar a todas las partes en el mes 1. No tomar partido. Las decisiones se toman con evidencia en el mes 2, no con rumores en el mes 1.

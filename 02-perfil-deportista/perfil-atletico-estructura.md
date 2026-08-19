@@ -8,7 +8,7 @@ El perfil atletico es el corazon del nivel Formacion. Es lo que convierte la cla
 - **Es medible o no sirve.** Cada dimension debe tener al menos un indicador cuantificable. Las dimensiones que no se pueden medir se redefinen hasta que se puedan.
 - **Es longitudinal.** El valor no esta en una foto puntual sino en la pelicula completa. Un alumno que entra bajo y mejora consistentemente es un exito del programa.
 - **No compara entre alumnos.** El reporte siempre muestra el progreso del alumno contra si mismo. Las comparaciones normativas (percentiles por edad) son herramientas internas, no comunicacion a familias.
-- **Se adapta por ciclo.** Lo que se mide y como se mide cambia segun la edad. No se aplica la misma bateria a un nino de 5 anos que a uno de 16.
+- **Se adapta por ciclo.** Lo que se mide y como se mide cambia segun la edad. No se aplica la misma bateria a un nino de 5 años que a uno de 16.
 
 ## Dimensiones del perfil
 
@@ -25,7 +25,7 @@ Coordinacion, equilibrio, lateralidad, ritmo, orientacion espacial y temporal.
 Fuerza, velocidad, resistencia aerobica, flexibilidad.
 
 - Son medibles con tests simples y tienen valores de referencia por edad y sexo.
-- Se evaluan dos veces al ano (entrada y salida) con la misma bateria.
+- Se evaluan dos veces al año (entrada y salida) con la misma bateria.
 - Los resultados alimentan las decisiones de planificacion: si un curso esta bajo en resistencia, se ajusta el plan.
 
 **Indicadores:** salto horizontal, velocidad 20m, Course Navette o test progresivo, sit and reach, lanzamiento de balon medicinal (categorias mayores).
@@ -59,7 +59,7 @@ Esfuerzo, perseverancia, trabajo en equipo, juego limpio, respeto, autonomia.
 
 ## Organizacion por ciclo
 
-### Ciclo 1: Prekinder a 2do basico (5 a 7 anos)
+### Ciclo 1: Prekinder a 2do basico (5 a 7 años)
 **Foco principal:** desarrollo motor y juego
 
 | Dimension | Peso relativo | Tipo de evaluacion |
@@ -72,7 +72,7 @@ Esfuerzo, perseverancia, trabajo en equipo, juego limpio, respeto, autonomia.
 
 Nota: en este ciclo NO se hacen rankings ni se presiona por rendimiento. Todo es juego con proposito.
 
-### Ciclo 2: 3ro a 6to basico (8 a 11 anos)
+### Ciclo 2: 3ro a 6to basico (8 a 11 años)
 **Foco principal:** multideporte y habilidades transversales
 
 | Dimension | Peso relativo | Tipo de evaluacion |
@@ -85,7 +85,7 @@ Nota: en este ciclo NO se hacen rankings ni se presiona por rendimiento. Todo es
 
 Nota: este es el ciclo clave para detectar intereses deportivos. Se expone a multiples deportes sin forzar especializacion.
 
-### Ciclo 3: 7mo basico a I medio (12 a 14 anos)
+### Ciclo 3: 7mo basico a I medio (12 a 14 años)
 **Foco principal:** orientacion deportiva y desarrollo
 
 | Dimension | Peso relativo | Tipo de evaluacion |
@@ -98,7 +98,7 @@ Nota: este es el ciclo clave para detectar intereses deportivos. Se expone a mul
 
 Nota: aqui comienza la especializacion natural. El alumno elige deportes y profundiza.
 
-### Ciclo 4: II a IV medio (15 a 17 anos)
+### Ciclo 4: II a IV medio (15 a 17 años)
 **Foco principal:** consolidacion, especializacion y proyeccion
 
 | Dimension | Peso relativo | Tipo de evaluacion |
@@ -121,7 +121,7 @@ Un alumno que egresa de IV medio del colegio deberia poder:
 4. **Actitudinalmente:** competir con juego limpio, trabajar en equipo y tolerar la frustracion
 5. **Autonomamente:** disenar y ejecutar una rutina de actividad fisica sin depender de un profesor
 
-Este perfil se presenta a las familias desde el primer ano. Es la promesa del area.
+Este perfil se presenta a las familias desde el primer año. Es la promesa del area.
 
 ## Proceso de implementacion
 
@@ -129,4 +129,4 @@ Este perfil se presenta a las familias desde el primer ano. Es la promesa del ar
 2. **Ajustar con los docentes** que conocen la realidad de cada ciclo
 3. **Validar con rectoria** la version co-construida
 4. **Pilotear en un ciclo** durante el primer semestre (idealmente Ciclo 2 por volumen y edad)
-5. **Ajustar y escalar** al resto de los ciclos en el segundo semestre o ano 2
+5. **Ajustar y escalar** al resto de los ciclos en el segundo semestre o año 2
