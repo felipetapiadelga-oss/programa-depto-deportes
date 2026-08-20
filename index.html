@@ -3632,6 +3632,143 @@ Se entrega al coordinador el mismo día. Copia a dirección si la lesión fue mo
     {id:"it11",label:"¿Es reemplazable o hay mejor opción?",type:"textarea"},
     {id:"it12",label:"Observaciones",type:"textarea"}
   ]
+},
+"form-inventario-materiales":{
+  title:"Inventario de materiales deportivos",
+  sectionId:"F0",
+  formType:"roster",
+  fields:[
+    {id:"im1",label:"Deporte / área",type:"select",options:["Fútbol","Básquetbol","Vóleibol","Atletismo","Gimnasia","Natación","Tenis","Tenis de mesa","Hándbol","Hockey","Ed. Física general","Otro"]},
+    {id:"im2",label:"Material / implemento",type:"text"},
+    {id:"im3",label:"Cantidad disponible",type:"text"},
+    {id:"im4",label:"Cantidad en buen estado",type:"text"},
+    {id:"im5",label:"Cantidad dañada o inutilizable",type:"text"},
+    {id:"im6",label:"Estado general",type:"select",options:["Nuevo","Bueno","Regular","Malo","Inutilizable"]},
+    {id:"im7",label:"Vida útil estimada restante",type:"select",options:["Menos de 6 meses","6-12 meses","1-2 años","Más de 2 años"]},
+    {id:"im8",label:"¿Se necesita reposición?",type:"select",options:["No","Sí, puede esperar","Sí, urgente"]},
+    {id:"im9",label:"Cantidad a reponer",type:"text"},
+    {id:"im10",label:"Costo estimado de reposición",type:"text"},
+    {id:"im11",label:"¿Dónde se almacena?",type:"text"},
+    {id:"im12",label:"Responsable del material",type:"text"},
+    {id:"im13",label:"Observaciones",type:"textarea"}
+  ]
+},
+"form-pauta-observacion-clase":{
+  title:"Pauta de observación de clases",
+  sectionId:"F0",
+  formType:"interview",
+  fields:[
+    {id:"oc1",label:"Fecha de observación",type:"date"},
+    {id:"oc2",label:"Docente observado",type:"text"},
+    {id:"oc3",label:"Curso",type:"text"},
+    {id:"oc4",label:"Cantidad de alumnos presentes",type:"text"},
+    {id:"oc5",label:"Recinto utilizado",type:"text"},
+    {id:"oc6",label:"Unidad / contenido de la clase",type:"text"},
+    {id:"oc7",label:"¿Hubo calentamiento estructurado?",type:"select",options:["No","Sí, breve (<5 min)","Sí, adecuado (5-10 min)","Sí, excesivo (>10 min)"]},
+    {id:"oc8",label:"% estimado de tiempo en actividad motriz real",type:"select",options:["Menos de 30%","30-50%","50-60%","60-75%","Más de 75%"]},
+    {id:"oc9",label:"Tiempo de espera / filas",type:"select",options:["Excesivo","Alto","Moderado","Bajo","Mínimo"]},
+    {id:"oc10",label:"Uso de material e implementos",type:"select",options:["No usó material","Mínimo","Adecuado","Muy buen uso","Creativo y variado"]},
+    {id:"oc11",label:"Claridad en las instrucciones",type:"select",options:["Confusas","Poco claras","Aceptables","Claras","Muy claras y con demostración"]},
+    {id:"oc12",label:"Manejo de grupo y disciplina",type:"select",options:["Conflictivo","Dificultades frecuentes","Aceptable","Buen manejo","Excelente clima"]},
+    {id:"oc13",label:"Clima emocional de la clase",type:"select",options:["Tenso / negativo","Indiferente","Normal","Positivo","Muy positivo y motivador"]},
+    {id:"oc14",label:"Inclusión de todos los alumnos",type:"select",options:["Excluye a varios","Algunos quedan fuera","La mayoría participa","Todos participan","Todos participan y se sienten valorados"]},
+    {id:"oc15",label:"Diferenciación por nivel de habilidad",type:"select",options:["No hay","Mínima","Alguna adaptación","Adaptaciones claras","Progresiones diferenciadas"]},
+    {id:"oc16",label:"¿Hubo vuelta a la calma / cierre?",type:"select",options:["No","Muy breve","Adecuada","Con reflexión final"]},
+    {id:"oc17",label:"Fortalezas observadas",type:"textarea"},
+    {id:"oc18",label:"Aspectos a mejorar",type:"textarea"},
+    {id:"oc19",label:"¿Qué apoyo podría necesitar este docente?",type:"textarea"},
+    {id:"oc20",label:"Observaciones adicionales (no compartir con el docente sin filtrar)",type:"textarea"}
+  ]
+},
+"form-mapa-horario-recintos":{
+  title:"Mapa de uso horario de recintos",
+  sectionId:"F0",
+  formType:"roster",
+  fields:[
+    {id:"mh1",label:"Recinto",type:"text"},
+    {id:"mh2",label:"Día",type:"select",options:["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]},
+    {id:"mh3",label:"Bloque horario",type:"select",options:["07:00-08:00","08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00","18:00-19:00"]},
+    {id:"mh4",label:"Estado del bloque",type:"select",options:["Libre","Clase Ed. Física","Entrenamiento selección","Taller deportivo","Uso no deportivo","Mantención","Otro"]},
+    {id:"mh5",label:"Curso / grupo que lo usa",type:"text"},
+    {id:"mh6",label:"Docente / entrenador asignado",type:"text"},
+    {id:"mh7",label:"Cantidad de alumnos (aprox)",type:"text"},
+    {id:"mh8",label:"¿Es un horario fijo o variable?",type:"select",options:["Fijo todo el año","Fijo por semestre","Variable"]},
+    {id:"mh9",label:"Potencial de reasignación",type:"select",options:["No reasignable","Difícil","Posible","Fácil"]},
+    {id:"mh10",label:"Observaciones",type:"textarea"}
+  ]
+},
+"form-foda-area":{
+  title:"Matriz FODA del área deportiva",
+  sectionId:"F0",
+  formType:"interview",
+  fields:[
+    {id:"fo1",label:"Fecha de elaboración",type:"date"},
+    {id:"fo2",label:"Participantes en la elaboración",type:"textarea"},
+    {id:"fo3",label:"FORTALEZAS: ¿Qué funciona bien hoy? ¿Qué no hay que tocar?",type:"textarea"},
+    {id:"fo4",label:"FORTALEZAS: Personas clave y líderes naturales del equipo",type:"textarea"},
+    {id:"fo5",label:"FORTALEZAS: Infraestructura o recursos que son ventaja competitiva",type:"textarea"},
+    {id:"fo6",label:"FORTALEZAS: Tradición deportiva o logros reconocidos",type:"textarea"},
+    {id:"fo7",label:"OPORTUNIDADES: Demanda no cubierta detectada (familias, alumnos)",type:"textarea"},
+    {id:"fo8",label:"OPORTUNIDADES: Espacios o recursos subutilizados (horas muertas, recintos)",type:"textarea"},
+    {id:"fo9",label:"OPORTUNIDADES: Alianzas posibles (clubes, federaciones, municipio)",type:"textarea"},
+    {id:"fo10",label:"OPORTUNIDADES: Tendencias o programas que el colegio podría adoptar",type:"textarea"},
+    {id:"fo11",label:"DEBILIDADES: Brechas en el equipo (capacitación, dotación, motivación)",type:"textarea"},
+    {id:"fo12",label:"DEBILIDADES: Problemas de infraestructura o materiales",type:"textarea"},
+    {id:"fo13",label:"DEBILIDADES: Procesos que no funcionan (comunicación, planificación, evaluación)",type:"textarea"},
+    {id:"fo14",label:"DEBILIDADES: Fuga de familias hacia deporte externo y razones",type:"textarea"},
+    {id:"fo15",label:"AMENAZAS: Restricciones presupuestarias o institucionales",type:"textarea"},
+    {id:"fo16",label:"AMENAZAS: Resistencia al cambio en el equipo",type:"textarea"},
+    {id:"fo17",label:"AMENAZAS: Competencia de otros colegios de la zona",type:"textarea"},
+    {id:"fo18",label:"AMENAZAS: Riesgos de seguridad, normativa o reputacionales",type:"textarea"},
+    {id:"fo19",label:"Top 3 quick wins identificados (bajo costo, alto impacto, rápidos)",type:"textarea"},
+    {id:"fo20",label:"Top 3 prioridades estratégicas para el primer año",type:"textarea"},
+    {id:"fo21",label:"Conclusión general: ¿por dónde partir?",type:"textarea"}
+  ]
+},
+"form-reunion-direccion-academica":{
+  title:"Ficha reunión con dirección académica",
+  sectionId:"F0",
+  formType:"interview",
+  fields:[
+    {id:"da1",label:"Fecha de la reunión",type:"date"},
+    {id:"da2",label:"Asistentes",type:"textarea"},
+    {id:"da3",label:"Horas de Ed. Física por nivel (actual)",type:"textarea"},
+    {id:"da4",label:"¿Es posible aumentar horas de Ed. Física? ¿Dónde?",type:"textarea"},
+    {id:"da5",label:"Restricciones de horario para entrenamientos",type:"textarea"},
+    {id:"da6",label:"Horarios disponibles antes de la jornada (ej. 7-8 AM)",type:"textarea"},
+    {id:"da7",label:"Horarios disponibles después de la jornada",type:"textarea"},
+    {id:"da8",label:"¿Hay topes entre competencias deportivas y actividades académicas?",type:"textarea"},
+    {id:"da9",label:"Política de permisos para seleccionados en competencia",type:"select",options:["No hay política","Caso a caso","Política informal","Política formal escrita"]},
+    {id:"da10",label:"¿Cómo se manejan las inasistencias por competencia?",type:"textarea"},
+    {id:"da11",label:"¿Existe coordinación para evaluaciones de seleccionados?",type:"select",options:["No","Informal","Parcial","Protocolo activo"]},
+    {id:"da12",label:"Disposición a crear protocolo de coordinación deporte-academia",type:"select",options:["No interesa","Abierto a conversar","Dispuesto","Muy dispuesto"]},
+    {id:"da13",label:"Restricciones de espacio (recintos compartidos con otras áreas)",type:"textarea"},
+    {id:"da14",label:"Fechas clave del calendario académico a respetar",type:"textarea"},
+    {id:"da15",label:"Acuerdos alcanzados en la reunión",type:"textarea"},
+    {id:"da16",label:"Compromisos y plazos",type:"textarea"},
+    {id:"da17",label:"Observaciones",type:"textarea"}
+  ]
+},
+"form-benchmark-colegios":{
+  title:"Análisis benchmark colegios de la zona",
+  sectionId:"F0",
+  formType:"roster",
+  fields:[
+    {id:"bc1",label:"Nombre del colegio",type:"text"},
+    {id:"bc2",label:"Comuna / sector",type:"text"},
+    {id:"bc3",label:"Tipo",type:"select",options:["Particular pagado","Particular subvencionado","Municipal"]},
+    {id:"bc4",label:"Deportes que ofrece (listar)",type:"textarea"},
+    {id:"bc5",label:"¿Tiene selecciones competitivas?",type:"select",options:["No","Pocas (1-3)","Varias (4-6)","Muchas (7+)"]},
+    {id:"bc6",label:"¿En qué ligas compite?",type:"textarea"},
+    {id:"bc7",label:"Infraestructura deportiva destacada",type:"textarea"},
+    {id:"bc8",label:"¿Ofrece deporte como diferenciador en admisión?",type:"select",options:["No","Algo","Sí, activamente"]},
+    {id:"bc9",label:"¿Tiene programa de becas deportivas?",type:"select",options:["No","No sé","Sí"]},
+    {id:"bc10",label:"¿Organiza torneos propios?",type:"select",options:["No","Ocasionalmente","Sí, regulares"]},
+    {id:"bc11",label:"Fortalezas que podemos aprender",type:"textarea"},
+    {id:"bc12",label:"Debilidades donde podemos diferenciarnos",type:"textarea"},
+    {id:"bc13",label:"Nivel de amenaza competitiva",type:"select",options:["Bajo","Medio","Alto"]},
+    {id:"bc14",label:"Observaciones",type:"textarea"}
+  ]
 }
 };
 
