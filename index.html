@@ -4460,7 +4460,7 @@ function exportRosterCSV(docId) {
 }
 
 // =====================================================
-// PERFIL BUILDER
+// PERFIL BUILDER — Guía interactiva para construir perfiles
 // =====================================================
 const PERFIL_SK = 'dd-perfiles-v1';
 const EVAL_SK = 'dd-eval-v1';
@@ -4468,18 +4468,25 @@ const DIM_COLORS = ['#3182ce','#38a169','#d69e2e','#e53e3e','#805ad5','#dd6b20',
 const NIVEL_COLORS = ['#fc8181','#f6e05e','#68d391','#63b3ed'];
 const NIVEL_NAMES = ['En desarrollo inicial','En progreso','Logrado','Destacado'];
 
+const DIM_SUGERENCIAS = {
+  general: [
+    {nombre:'Motriz',peso:30,inds:[],desc:'Habilidades de movimiento: coordinación, equilibrio, lateralidad, locomoción, manipulación de objetos'},
+    {nombre:'Cognitivo-táctico',peso:20,inds:[],desc:'Comprensión del juego: lectura de situaciones, toma de decisiones, comprensión táctica'},
+    {nombre:'Físico',peso:20,inds:[],desc:'Capacidades físicas: velocidad, resistencia, fuerza, flexibilidad, agilidad'},
+    {nombre:'Actitudinal',peso:25,inds:[],desc:'Valores deportivos: esfuerzo, trabajo en equipo, juego limpio, perseverancia'},
+    {nombre:'Antropométrico',peso:5,inds:[],desc:'Composición corporal: IMC, crecimiento, datos sensibles con protocolo especial'}
+  ],
+  deporte: [
+    {nombre:'Técnica individual',peso:25,inds:[],desc:'Fundamentos técnicos propios del deporte'},
+    {nombre:'Táctica y lectura de juego',peso:20,inds:[],desc:'Comprensión del juego, posicionamiento, toma de decisiones'},
+    {nombre:'Preparación física',peso:20,inds:[],desc:'Capacidades físicas específicas del deporte'},
+    {nombre:'Mental y actitudinal',peso:20,inds:[],desc:'Concentración, resiliencia, liderazgo, trabajo en equipo'},
+    {nombre:'Juego colectivo',peso:15,inds:[],desc:'Comunicación, roles, funcionamiento grupal'}
+  ]
+};
+
 function getDefaultPerfiles() {
-  return [
-    {id:'general',name:'Perfil deportista general',tipo:'general',
-     dims:[
-       {nombre:'Motriz',peso:30,inds:['Coordinación general','Equilibrio','Lateralidad','Locomoción','Manipulación de objetos']},
-       {nombre:'Cognitivo-táctico',peso:20,inds:['Comprensión táctica','Toma de decisiones','Lectura de juego']},
-       {nombre:'Físico',peso:20,inds:['Velocidad','Resistencia','Fuerza','Flexibilidad','Agilidad']},
-       {nombre:'Actitudinal',peso:25,inds:['Esfuerzo','Trabajo en equipo','Juego limpio','Perseverancia']},
-       {nombre:'Antropométrico',peso:5,inds:['IMC','Composición corporal']}
-     ]
-    }
-  ];
+  return [{id:'general',name:'Perfil deportista general',tipo:'general',dims:[],notas:''}];
 }
 
 function loadPerfiles() {
@@ -4493,7 +4500,7 @@ function loadEvals() {
 }
 function saveEvals(e) { localStorage.setItem(EVAL_SK, JSON.stringify(e)); }
 
-let pfState = { activeProfile: 0, mode: 'ver', openDims: {}, evalScores: {} };
+let pfState = { activeProfile: 0, mode: 'armar', openDims: {}, evalScores: {} };
 
 function renderPerfilBuilder() {
   return `<div class="content-area form-area" id="perfil-root">
@@ -4522,7 +4529,8 @@ function renderPerfilTabs() {
   if (!wrap) return;
   let h = '<div class="perfil-tabs">';
   perfiles.forEach((p,i) => {
-    h += `<button class="perfil-tab${i===pfState.activeProfile?' active':''}" onclick="switchProfile(${i})">${escHtml(p.name)}</button>`;
+    const label = p.dims.length === 0 ? p.name + ' (vacío)' : p.name;
+    h += `<button class="perfil-tab${i===pfState.activeProfile?' active':''}" onclick="switchProfile(${i})">${escHtml(label)}</button>`;
   });
   h += `<button class="perfil-tab add" onclick="showNewProfileModal()">+ Nuevo perfil</button>`;
   h += '</div>';
@@ -4532,10 +4540,13 @@ function renderPerfilTabs() {
 function renderPerfilMode() {
   const wrap = document.getElementById('perfil-mode-wrap');
   if (!wrap) return;
+  const perfiles = loadPerfiles();
+  const pf = perfiles[pfState.activeProfile];
+  const hasDims = pf && pf.dims.length >= 3;
   wrap.innerHTML = `<div class="perfil-mode">
-    <button class="${pfState.mode==='ver'?'active':''}" onclick="switchPerfilMode('ver')">Ver perfil</button>
-    <button class="${pfState.mode==='eval'?'active':''}" onclick="switchPerfilMode('eval')">Evaluar alumno</button>
-    <button class="${pfState.mode==='historial'?'active':''}" onclick="switchPerfilMode('historial')">Historial</button>
+    <button class="${pfState.mode==='armar'?'active':''}" onclick="switchPerfilMode('armar')">Armar perfil</button>
+    <button class="${pfState.mode==='eval'?'active':''}" onclick="switchPerfilMode('eval')" ${hasDims?'':'disabled style="opacity:.4;cursor:not-allowed"'}>Evaluar alumno</button>
+    <button class="${pfState.mode==='historial'?'active':''}" onclick="switchPerfilMode('historial')" ${hasDims?'':'disabled style="opacity:.4;cursor:not-allowed"'}>Historial</button>
   </div>`;
 }
 
@@ -4545,46 +4556,161 @@ function renderPerfilBody() {
   const perfiles = loadPerfiles();
   const pf = perfiles[pfState.activeProfile];
   if (!pf) return;
-  if (pfState.mode === 'ver') renderPerfilVer(wrap, pf);
+  if (pfState.mode === 'armar') renderPerfilArmar(wrap, pf);
   else if (pfState.mode === 'eval') renderPerfilEval(wrap, pf);
   else renderPerfilHistorial(wrap, pf);
 }
 
-function renderPerfilVer(wrap, pf) {
-  const scores = pf.dims.map(() => 4);
+function perfilProgress(pf) {
+  let steps = 0, done = 0;
+  // Step 1: Has dimensions (3+)
+  steps++; if (pf.dims.length >= 3) done++;
+  // Step 2: Weights sum 100
+  steps++; if (pf.dims.length > 0 && pf.dims.reduce((s,d)=>s+d.peso,0)===100) done++;
+  // Step 3: Each dim has at least 1 indicator
+  steps++; if (pf.dims.length > 0 && pf.dims.every(d=>d.inds.length>0)) done++;
+  // Step 4: Has notes/decisions documented
+  steps++; if (pf.notas && pf.notas.trim().length > 10) done++;
+  return {steps, done, pct: steps?Math.round(done/steps*100):0};
+}
+
+function renderPerfilArmar(wrap, pf) {
+  const pi = pfState.activeProfile;
+  const prog = perfilProgress(pf);
+  const totalW = pf.dims.reduce((s,d)=>s+d.peso, 0);
+  const wOk = pf.dims.length > 0 && totalW === 100;
+  const tipoSug = pf.tipo === 'general' ? 'general' : 'deporte';
+
+  // Progress bar
+  let progressHtml = `<div style="margin-bottom:1.2rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem">
+      <span style="font-size:.75rem;font-weight:600;color:var(--azul)">Progreso del perfil</span>
+      <span style="font-size:.72rem;color:var(--gris-texto)">${prog.done}/${prog.steps} pasos</span>
+    </div>
+    <div class="progress-bar" style="height:8px;border-radius:4px"><div class="progress-fill" style="width:${prog.pct}%;border-radius:4px;transition:width .3s"></div></div>
+  </div>`;
+
+  // Step 1: Dimensions
   let dimsHtml = '';
-  pf.dims.forEach((d, i) => {
-    const col = DIM_COLORS[i % DIM_COLORS.length];
-    const isOpen = pfState.openDims['v'+i];
-    dimsHtml += `<div class="dim-card">
-      <div class="dim-card-head" onclick="toggleDimCard('v',${i})">
-        <div class="dim-card-title"><span class="dim-card-dot" style="background:${col}"></span>${escHtml(d.nombre)}</div>
-        <span class="dim-card-weight">${d.peso}%</span>
-      </div>
-      ${isOpen ? `<div class="dim-card-body">
-        ${d.inds.map(ind => `<div class="dim-indicator"><span class="dim-indicator-name">${escHtml(ind)}</span></div>`).join('')}
-        <button class="dim-add-btn" onclick="addIndicator(${pfState.activeProfile},${i})">+ Agregar indicador</button>
-      </div>` : ''}
+  if (pf.dims.length === 0) {
+    dimsHtml = `<div style="text-align:center;padding:1.5rem;background:#f7fafc;border-radius:10px;border:2px dashed #e2e8f0">
+      <p style="color:var(--gris-texto);font-size:.82rem;margin:0 0 .8rem">Este perfil aún no tiene dimensiones definidas.</p>
+      <p style="color:#a0aec0;font-size:.75rem;margin:0 0 1rem">Las dimensiones son las áreas que componen al deportista que quieres formar.<br>Puedes partir con las sugerencias o crear las tuyas desde cero.</p>
+      <button class="form-btn primary" onclick="loadSugerencias('${tipoSug}')">Cargar sugerencias</button>
+      <button class="form-btn" onclick="addDimension(${pi})" style="margin-left:.3rem">Agregar dimensión manual</button>
     </div>`;
-  });
-  const isGeneral = pf.tipo === 'general';
-  wrap.innerHTML = `<div class="perfil-grid">
-    <div class="perfil-radar-wrap">
+  } else {
+    pf.dims.forEach((d, i) => {
+      const col = DIM_COLORS[i % DIM_COLORS.length];
+      const isOpen = pfState.openDims['v'+i];
+      let bodyHtml = '';
+      if (isOpen) {
+        // Editable weight
+        bodyHtml += `<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
+          <label style="font-size:.72rem;font-weight:600;color:var(--gris-texto);white-space:nowrap">Peso:</label>
+          <input type="number" min="0" max="100" value="${d.peso}" onchange="updateDimWeight(${pi},${i},this.value)" style="width:60px;padding:.25rem .4rem;border:1px solid var(--gris-borde);border-radius:4px;font-size:.8rem">
+          <span style="font-size:.7rem;color:#a0aec0">% del total</span>
+        </div>`;
+        // Description
+        if (d.desc) bodyHtml += `<p style="font-size:.72rem;color:#a0aec0;margin:0 0 .5rem;font-style:italic">${escHtml(d.desc)}</p>`;
+        // Indicators
+        if (d.inds.length > 0) {
+          bodyHtml += `<div style="font-size:.7rem;font-weight:600;color:var(--gris-texto);margin-bottom:.3rem">Indicadores:</div>`;
+          d.inds.forEach((ind, j) => {
+            bodyHtml += `<div class="dim-indicator">
+              <span class="dim-indicator-name">${escHtml(ind)}</span>
+              <div style="display:flex;gap:.2rem">
+                <button style="border:none;background:none;cursor:pointer;font-size:.7rem;color:#a0aec0" onclick="editIndicator(${pi},${i},${j})" title="Editar">Editar</button>
+                <button style="border:none;background:none;cursor:pointer;font-size:.7rem;color:var(--rojo)" onclick="removeIndicator(${pi},${i},${j})" title="Eliminar">X</button>
+              </div>
+            </div>`;
+          });
+        } else {
+          bodyHtml += `<p style="font-size:.72rem;color:#a0aec0;margin:.3rem 0">Sin indicadores aún. Agrega lo que observarás concretamente en esta dimensión.</p>`;
+        }
+        bodyHtml += `<button class="dim-add-btn" onclick="addIndicator(${pi},${i})">+ Agregar indicador</button>`;
+        // Actions
+        bodyHtml += `<div style="border-top:1px solid #f0f0f0;padding-top:.5rem;margin-top:.4rem;display:flex;gap:.4rem;justify-content:flex-end">
+          <button class="form-btn" style="font-size:.65rem;padding:.2rem .5rem" onclick="renameDimension(${pi},${i})">Renombrar</button>
+          <button class="form-btn danger" style="font-size:.65rem;padding:.2rem .5rem" onclick="removeDimension(${pi},${i})">Eliminar dimensión</button>
+        </div>`;
+      }
+      dimsHtml += `<div class="dim-card">
+        <div class="dim-card-head" onclick="toggleDimCard('v',${i})">
+          <div class="dim-card-title"><span class="dim-card-dot" style="background:${col}"></span>${escHtml(d.nombre)}</div>
+          <div style="display:flex;align-items:center;gap:.4rem">
+            <span style="font-size:.65rem;color:#a0aec0">${d.inds.length} ind.</span>
+            <span class="dim-card-weight">${d.peso}%</span>
+          </div>
+        </div>
+        ${isOpen ? `<div class="dim-card-body">${bodyHtml}</div>` : ''}
+      </div>`;
+    });
+    dimsHtml += `<button class="dim-add-btn" style="margin-top:.3rem" onclick="addDimension(${pi})">+ Agregar dimensión</button>`;
+  }
+
+  // Weight summary
+  let weightHtml = '';
+  if (pf.dims.length > 0) {
+    weightHtml = `<div style="display:flex;align-items:center;gap:.5rem;margin-top:.5rem;padding:.5rem .7rem;border-radius:8px;background:${wOk?'#f0fff4':'#fffaf0'};border:1px solid ${wOk?'#c6f6d5':'#feebc8'}">
+      <span style="font-size:.75rem;font-weight:600;color:${wOk?'var(--verde)':'#c05621'}">Total: ${totalW}%</span>
+      <span style="font-size:.7rem;color:${wOk?'#38a169':'#dd6b20'}">${wOk?'Los pesos suman 100%':'Deben sumar 100% (faltan '+(100-totalW)+'%)'}</span>
+    </div>`;
+  }
+
+  // Notes section
+  const notasVal = pf.notas || '';
+  let notasHtml = `<div style="margin-top:1.2rem">
+    <div style="font-size:.78rem;font-weight:600;color:var(--azul);margin-bottom:.3rem">Notas y decisiones del equipo</div>
+    <p style="font-size:.72rem;color:#a0aec0;margin:0 0 .4rem">Documenta aquí las decisiones tomadas con el equipo al construir este perfil: por qué se eligieron estas dimensiones, qué se descartó, qué se acordó.</p>
+    <textarea id="perfil-notas" onblur="savePerfilNotas(${pi})" placeholder="Ej: En reunión del 15/marzo con el equipo se acordó que la dimensión motriz pesa más en ciclos menores..." style="width:100%;min-height:80px;padding:.5rem;border:1px solid var(--gris-borde);border-radius:8px;font-size:.78rem;font-family:inherit;resize:vertical">${escHtml(notasVal)}</textarea>
+  </div>`;
+
+  // Guide text
+  const guideHtml = `<div style="background:linear-gradient(135deg,#ebf8ff,#f0fff4);border:1px solid #bee3f8;border-radius:10px;padding:.8rem 1rem;margin-bottom:1rem">
+    <div style="font-size:.8rem;font-weight:600;color:var(--azul);margin-bottom:.3rem">Guía para armar el perfil</div>
+    <ol style="margin:0;padding-left:1.2rem;font-size:.73rem;color:var(--gris-texto);line-height:1.6">
+      <li><b>Definir dimensiones:</b> ¿Qué áreas componen al deportista que queremos? ${pf.dims.length>=3?'<span style="color:var(--verde)">Listo</span>':'<span style="color:#dd6b20">Pendiente</span>'}</li>
+      <li><b>Asignar pesos:</b> ¿Cuánto pesa cada dimensión? Deben sumar 100%. ${wOk?'<span style="color:var(--verde)">Listo</span>':'<span style="color:#dd6b20">Pendiente</span>'}</li>
+      <li><b>Agregar indicadores:</b> ¿Qué observamos concretamente en cada dimensión? ${pf.dims.length>0&&pf.dims.every(d=>d.inds.length>0)?'<span style="color:var(--verde)">Listo</span>':'<span style="color:#dd6b20">Pendiente</span>'}</li>
+      <li><b>Documentar decisiones:</b> Registra los acuerdos del equipo. ${pf.notas&&pf.notas.trim().length>10?'<span style="color:var(--verde)">Listo</span>':'<span style="color:#dd6b20">Pendiente</span>'}</li>
+    </ol>
+    <p style="font-size:.7rem;color:#718096;margin:.4rem 0 0;font-style:italic">Este perfil se arma después del diagnóstico, en co-construcción con el equipo (Plan 90 días, semanas 7-8).</p>
+  </div>`;
+
+  // Radar preview (only if 3+ dims)
+  let radarHtml = '';
+  if (pf.dims.length >= 3) {
+    radarHtml = `<div class="perfil-radar-wrap">
+      <div style="font-size:.72rem;font-weight:600;color:var(--azul);margin-bottom:.4rem">Vista previa del perfil</div>
       <canvas id="radarCv" width="300" height="300"></canvas>
       <div class="perfil-legend" id="perfil-legend"></div>
-      <div style="margin-top:.6rem;font-size:.7rem;color:#a0aec0">Estructura del perfil: ${pf.dims.length} dimensiones</div>
-    </div>
-    <div>
-      <div class="perfil-dims">${dimsHtml}</div>
-      ${!isGeneral ? `<div style="margin-top:.8rem;text-align:right">
-        <button class="form-btn danger" style="font-size:.72rem" onclick="deleteProfile(${pfState.activeProfile})">Eliminar perfil</button>
-      </div>` : ''}
-    </div>
-  </div>`;
-  drawRadar(scores, pf.dims.map(d=>d.nombre), pf.dims.map(d=>d.peso));
+    </div>`;
+  }
+
+  const isGeneral = pf.tipo === 'general';
+  wrap.innerHTML = `${guideHtml}${progressHtml}
+    <div class="perfil-grid" style="${pf.dims.length<3?'grid-template-columns:1fr':''}">
+      ${radarHtml}
+      <div>
+        <div style="font-size:.78rem;font-weight:600;color:var(--azul);margin-bottom:.5rem">Dimensiones del perfil</div>
+        <div class="perfil-dims">${dimsHtml}</div>
+        ${weightHtml}
+        ${notasHtml}
+        ${!isGeneral ? `<div style="margin-top:1rem;text-align:right">
+          <button class="form-btn danger" style="font-size:.72rem" onclick="deleteProfile(${pi})">Eliminar perfil</button>
+        </div>` : ''}
+      </div>
+    </div>`;
+
+  if (pf.dims.length >= 3) {
+    const scores = pf.dims.map(() => 4);
+    drawRadar(scores, pf.dims.map(d=>d.nombre), pf.dims.map(d=>d.peso));
+  }
 }
 
 function renderPerfilEval(wrap, pf) {
+  if (pf.dims.length < 3) { wrap.innerHTML = '<div style="text-align:center;padding:2rem;color:#a0aec0">Arma el perfil primero (mínimo 3 dimensiones).</div>'; return; }
   const sc = pfState.evalScores;
   let evalRows = '';
   pf.dims.forEach((d, i) => {
@@ -4629,6 +4755,7 @@ function renderPerfilEval(wrap, pf) {
 }
 
 function renderPerfilHistorial(wrap, pf) {
+  if (pf.dims.length < 3) { wrap.innerHTML = '<div style="text-align:center;padding:2rem;color:#a0aec0">Arma el perfil primero.</div>'; return; }
   const evals = loadEvals().filter(e => e.profileId === pf.id);
   if (evals.length === 0) {
     wrap.innerHTML = '<div style="text-align:center;padding:2rem;color:#a0aec0">Sin evaluaciones guardadas para este perfil.<br>Usa el modo "Evaluar alumno" para registrar la primera.</div>';
@@ -4689,7 +4816,6 @@ function drawRadar(scores, labels, weights) {
     return [cx + dist*Math.cos(a), cy + dist*Math.sin(a)];
   }
 
-  // Concentric rings
   for (let lv = 1; lv <= 4; lv++) {
     ctx.beginPath();
     const lr = r*lv/4;
@@ -4697,67 +4823,43 @@ function drawRadar(scores, labels, weights) {
     ctx.strokeStyle = lv===4?'#cbd5e0':'#e2e8f0';
     ctx.lineWidth = lv===4?1.5:0.7;
     ctx.stroke();
-    // Level number
     const [lx,ly] = pt(0, lr);
-    ctx.fillStyle = '#a0aec0';
-    ctx.font = '9px sans-serif';
-    ctx.textAlign = 'left';
+    ctx.fillStyle = '#a0aec0'; ctx.font = '9px sans-serif'; ctx.textAlign = 'left';
     ctx.fillText(lv, lx+3, ly-3);
   }
 
-  // Axes
   for (let i = 0; i < n; i++) {
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    const [x,y] = pt(i, r);
-    ctx.lineTo(x, y);
-    ctx.strokeStyle = '#e2e8f0';
-    ctx.lineWidth = 0.7;
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, cy);
+    const [x,y] = pt(i, r); ctx.lineTo(x, y);
+    ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 0.7; ctx.stroke();
   }
 
-  // Data polygon
   const hasData = scores.some(s => s > 0);
   if (hasData) {
     ctx.beginPath();
-    for (let i = 0; i <= n; i++) {
-      const idx = i%n;
-      const [x,y] = pt(idx, r*scores[idx]/4);
-      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-    }
-    ctx.fillStyle = 'rgba(43,108,176,0.15)';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(43,108,176,0.7)';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    // Dots
+    for (let i = 0; i <= n; i++) { const idx=i%n; const [x,y]=pt(idx, r*scores[idx]/4); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }
+    ctx.fillStyle = 'rgba(43,108,176,0.15)'; ctx.fill();
+    ctx.strokeStyle = 'rgba(43,108,176,0.7)'; ctx.lineWidth = 2; ctx.stroke();
     for (let i = 0; i < n; i++) {
       if (scores[i] > 0) {
         const [x,y] = pt(i, r*scores[i]/4);
-        ctx.beginPath();
-        ctx.arc(x, y, 4, 0, Math.PI*2);
-        ctx.fillStyle = DIM_COLORS[i % DIM_COLORS.length];
-        ctx.fill();
-        ctx.strokeStyle = '#fff';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+        ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2);
+        ctx.fillStyle = DIM_COLORS[i%DIM_COLORS.length]; ctx.fill();
+        ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
       }
     }
   }
 
-  // Labels
   const leg = document.getElementById('perfil-legend');
   let legH = '';
   for (let i = 0; i < n; i++) {
     const [x,y] = pt(i, r+22);
-    ctx.fillStyle = '#2d3748';
-    ctx.font = 'bold 10px system-ui,sans-serif';
-    ctx.textAlign = i===0||i===n?'center': (pt(i,1)[0]>cx?'left':'right');
+    ctx.fillStyle = '#2d3748'; ctx.font = 'bold 10px system-ui,sans-serif';
+    ctx.textAlign = i===0?'center': (pt(i,1)[0]>cx?'left':'right');
     ctx.textBaseline = y < cy ? 'bottom' : (y > cy+5 ? 'top' : 'middle');
     ctx.fillText(labels[i], x, y);
     if (weights && weights[i]) {
-      ctx.font = '8px sans-serif';
-      ctx.fillStyle = '#a0aec0';
+      ctx.font = '8px sans-serif'; ctx.fillStyle = '#a0aec0';
       ctx.fillText(weights[i]+'%', x, y + (y<cy?-10:11));
     }
     legH += `<span class="perfil-legend-item"><span class="perfil-legend-dot" style="background:${DIM_COLORS[i%DIM_COLORS.length]}"></span>${labels[i]}</span>`;
@@ -4765,15 +4867,99 @@ function drawRadar(scores, labels, weights) {
   if (leg) leg.innerHTML = legH;
 }
 
-function switchProfile(i) { pfState.activeProfile = i; pfState.evalScores = {}; pfState.openDims = {}; renderPerfilTabs(); renderPerfilBody(); }
+function switchProfile(i) { pfState.activeProfile = i; pfState.evalScores = {}; pfState.openDims = {}; pfState.mode = 'armar'; renderPerfilTabs(); renderPerfilMode(); renderPerfilBody(); }
 function switchPerfilMode(m) { pfState.mode = m; pfState.evalScores = {}; renderPerfilMode(); renderPerfilBody(); }
 function toggleDimCard(prefix, i) { pfState.openDims[prefix+i] = !pfState.openDims[prefix+i]; renderPerfilBody(); }
+
+function loadSugerencias(tipo) {
+  const sugs = DIM_SUGERENCIAS[tipo] || DIM_SUGERENCIAS.general;
+  const perfiles = loadPerfiles();
+  perfiles[pfState.activeProfile].dims = sugs.map(s => ({...s, inds:[...s.inds]}));
+  savePerfiles(perfiles);
+  // Open all dims to show structure
+  sugs.forEach((s,i) => { pfState.openDims['v'+i] = true; });
+  renderPerfilTabs();
+  renderPerfilMode();
+  renderPerfilBody();
+  toast('Sugerencias cargadas — edita a gusto');
+}
+
+function addDimension(pi) {
+  const nombre = prompt('Nombre de la nueva dimensión:');
+  if (!nombre || !nombre.trim()) return;
+  const perfiles = loadPerfiles();
+  perfiles[pi].dims.push({nombre: nombre.trim(), peso: 0, inds: [], desc: ''});
+  savePerfiles(perfiles);
+  pfState.openDims['v'+(perfiles[pi].dims.length-1)] = true;
+  renderPerfilTabs(); renderPerfilMode(); renderPerfilBody();
+}
+
+function renameDimension(pi, di) {
+  const perfiles = loadPerfiles();
+  const current = perfiles[pi].dims[di].nombre;
+  const nuevo = prompt('Nuevo nombre para la dimensión:', current);
+  if (!nuevo || !nuevo.trim() || nuevo.trim() === current) return;
+  perfiles[pi].dims[di].nombre = nuevo.trim();
+  savePerfiles(perfiles);
+  renderPerfilBody();
+}
+
+function removeDimension(pi, di) {
+  if (!confirm('¿Eliminar esta dimensión y sus indicadores?')) return;
+  const perfiles = loadPerfiles();
+  perfiles[pi].dims.splice(di, 1);
+  savePerfiles(perfiles);
+  pfState.openDims = {};
+  renderPerfilTabs(); renderPerfilMode(); renderPerfilBody();
+  toast('Dimensión eliminada');
+}
+
+function updateDimWeight(pi, di, val) {
+  const perfiles = loadPerfiles();
+  perfiles[pi].dims[di].peso = parseInt(val) || 0;
+  savePerfiles(perfiles);
+  renderPerfilBody();
+}
+
+function addIndicator(pi, di) {
+  const ind = prompt('Nombre del indicador:');
+  if (!ind || !ind.trim()) return;
+  const perfiles = loadPerfiles();
+  perfiles[pi].dims[di].inds.push(ind.trim());
+  savePerfiles(perfiles);
+  renderPerfilBody();
+}
+
+function editIndicator(pi, di, ii) {
+  const perfiles = loadPerfiles();
+  const current = perfiles[pi].dims[di].inds[ii];
+  const nuevo = prompt('Editar indicador:', current);
+  if (!nuevo || !nuevo.trim() || nuevo.trim() === current) return;
+  perfiles[pi].dims[di].inds[ii] = nuevo.trim();
+  savePerfiles(perfiles);
+  renderPerfilBody();
+}
+
+function removeIndicator(pi, di, ii) {
+  const perfiles = loadPerfiles();
+  perfiles[pi].dims[di].inds.splice(ii, 1);
+  savePerfiles(perfiles);
+  renderPerfilBody();
+}
+
+function savePerfilNotas(pi) {
+  const el = document.getElementById('perfil-notas');
+  if (!el) return;
+  const perfiles = loadPerfiles();
+  perfiles[pi].notas = el.value;
+  savePerfiles(perfiles);
+  toast('Notas guardadas');
+}
 
 function setEvalScore(dimIdx, score) {
   pfState.evalScores[dimIdx] = pfState.evalScores[dimIdx] === score ? 0 : score;
   renderPerfilBody();
 }
-
 function clearEval() { pfState.evalScores = {}; renderPerfilBody(); }
 
 function saveEvaluation() {
@@ -4828,7 +5014,6 @@ function viewEvalRadar(idx) {
     const cv2 = document.getElementById('radarModal');
     if (!cv2) return;
     const origCv = document.getElementById('radarCv');
-    // Temporarily swap canvas ID for drawRadar
     if (origCv) origCv.id = 'radarCv_tmp';
     cv2.id = 'radarCv';
     const scores = pf.dims.map((d,i) => ev.scores[i]||0);
@@ -4849,16 +5034,16 @@ function showNewProfileModal() {
   root.insertAdjacentHTML('beforeend', `<div class="perfil-new-modal" onclick="this.remove()">
     <div class="perfil-new-box" onclick="event.stopPropagation()">
       <h3>Nuevo perfil deportivo</h3>
+      <p style="font-size:.75rem;color:var(--gris-texto);margin:0 0 1rem">Crea un perfil para un deporte específico. Las dimensiones se pueden editar después.</p>
       <div class="form-group"><label>Nombre del perfil</label><input type="text" id="np-name" placeholder="Ej: Perfil jugador de hockey"></div>
       <div class="form-group"><label>Tipo</label><select id="np-tipo">
         <option value="deporte">Deporte específico</option>
         <option value="elite">Élite / selección</option>
         <option value="otro">Otro</option>
       </select></div>
-      <div class="form-group"><label>Dimensiones (separadas por coma)</label><input type="text" id="np-dims" placeholder="Ej: Técnica, Táctica, Físico, Mental, Juego colectivo" value="Técnica, Táctica, Físico, Mental, Actitudinal"></div>
       <div class="perfil-new-btns">
         <button class="form-btn" onclick="this.closest('.perfil-new-modal').remove()">Cancelar</button>
-        <button class="form-btn primary" onclick="createProfile()">Crear perfil</button>
+        <button class="form-btn primary" onclick="createProfile()">Crear (vacío para armar)</button>
       </div>
     </div>
   </div>`);
@@ -4868,25 +5053,17 @@ function showNewProfileModal() {
 function createProfile() {
   const name = document.getElementById('np-name')?.value?.trim();
   const tipo = document.getElementById('np-tipo')?.value || 'deporte';
-  const dimsRaw = document.getElementById('np-dims')?.value || '';
   if (!name) { toast('Ingresa un nombre'); return; }
-  const dimNames = dimsRaw.split(',').map(s=>s.trim()).filter(Boolean);
-  if (dimNames.length < 3) { toast('Mínimo 3 dimensiones'); return; }
   const perfiles = loadPerfiles();
   const id = name.toLowerCase().replace(/[^a-záéíóúñü0-9]/g,'-').replace(/-+/g,'-');
   if (perfiles.find(p => p.id === id)) { toast('Ya existe un perfil con ese nombre'); return; }
-  const equalW = Math.floor(100 / dimNames.length);
-  const dims = dimNames.map(n => ({ nombre: n, peso: equalW, inds: [] }));
-  // Adjust last weight to sum 100
-  dims[dims.length-1].peso += 100 - equalW * dimNames.length;
-  perfiles.push({ id, name, tipo, dims });
+  perfiles.push({ id, name, tipo, dims: [], notas: '' });
   savePerfiles(perfiles);
   pfState.activeProfile = perfiles.length - 1;
   pfState.openDims = {};
   document.querySelector('.perfil-new-modal')?.remove();
-  renderPerfilTabs();
-  renderPerfilBody();
-  toast('Perfil creado');
+  renderPerfilTabs(); renderPerfilMode(); renderPerfilBody();
+  toast('Perfil creado — ahora ármalo');
 }
 
 function deleteProfile(idx) {
@@ -4896,31 +5073,18 @@ function deleteProfile(idx) {
   const pId = perfiles[idx].id;
   perfiles.splice(idx, 1);
   savePerfiles(perfiles);
-  // Remove evals for this profile
   const evals = loadEvals().filter(e => e.profileId !== pId);
   saveEvals(evals);
   pfState.activeProfile = 0;
-  renderPerfilTabs();
-  renderPerfilBody();
+  renderPerfilTabs(); renderPerfilMode(); renderPerfilBody();
   toast('Perfil eliminado');
-}
-
-function addIndicator(profIdx, dimIdx) {
-  const ind = prompt('Nombre del indicador:');
-  if (!ind || !ind.trim()) return;
-  const perfiles = loadPerfiles();
-  perfiles[profIdx].dims[dimIdx].inds.push(ind.trim());
-  savePerfiles(perfiles);
-  renderPerfilBody();
 }
 
 function exportPerfilData() {
   const data = { perfiles: loadPerfiles(), evaluaciones: loadEvals() };
   const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'perfiles-deportista.json';
-  a.click();
+  a.href = URL.createObjectURL(blob); a.download = 'perfiles-deportista.json'; a.click();
   URL.revokeObjectURL(a.href);
   toast('Datos exportados');
 }
@@ -4940,9 +5104,7 @@ function exportEvalCSV() {
   }
   const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `evaluaciones-${pf.id}.csv`;
-  a.click();
+  a.href = URL.createObjectURL(blob); a.download = `evaluaciones-${pf.id}.csv`; a.click();
   URL.revokeObjectURL(a.href);
   toast('CSV exportado');
 }
